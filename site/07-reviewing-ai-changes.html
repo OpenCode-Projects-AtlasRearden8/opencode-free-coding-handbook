@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 7 — Reviewing AI Changes · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 7 — Reviewing AI Changes</h1>
+<div class="chapter-meta">Chapter 7/10 · ~1,165 words · ~5 min read</div>
+<p>If prompts are how you direct the AI, review is how you keep your project <em>yours</em>. Skipping review is how people end up with folders they no longer understand. This chapter gives you a light, repeatable review routine — light enough that you'll actually do it every time.</p>
+<h2 id="the-mindset">The mindset</h2>
+<p>Treat every AI change like a <strong>pull request from a new coworker</strong>: competent, fast, occasionally wrong about details, always acting in good faith. You don't read it looking for evil; you read it looking for <strong>misunderstandings</strong>. Then — and this is the part people forget — you are the one signing the work. "The AI wrote it" is not a defence anywhere in life.</p>
+<h2 id="step-1-see-what-changed-git-diff">Step 1: See what changed (<code>git diff</code>)</h2>
+<p>The review always starts in the same place:</p>
+<pre><code class="language-bash">git diff          # unsaved changes, line by line
+git diff --stat   # just the file list and sizes first
+</code></pre>
+<p>Reading order that works:</p>
+<ol>
+<li><code>--stat</code> first — how many files? Does the <em>scope</em> match the task? (You asked for a dark-mode toggle and it touched 14 files? Ask why before reading anything.)</li>
+<li>Then read the diff of each changed file top to bottom. Lines starting with <code>+</code> were added, <code>-</code> removed.</li>
+<li>Anything confusing <em>stays</em> confusing until you've asked. "Explain @src/app.js changes from this diff" in OpenCode is legitimate review, not cheating — make the AI teach you its own change.</li>
+</ol>
+<p><strong>Scope-of-work check.</strong> The most common AI mistake is not bad code; it is <em>more code than you asked for</em>: extra helpers, reformatting of untouched files, "improvements" beside the point. If you see it, say so: "revert everything except the <code>dark-mode</code> toggle changes." Scope discipline is review.</p>
+<h2 id="step-2-run-the-thing">Step 2: Run the thing</h2>
+<p>Code review that never runs the code is just reading fiction. The checklist:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The program/app runs and does the new thing</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The old things still work (the new toggle didn't break list view)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The <em>done-definition</em> from your prompt is met — you wrote one, it's checkable</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Error paths: give it bad input, slow network, empty file — does it grumble politely instead of crashing?</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> If tests exist: they pass (and if none exist and the change is logic, ask the AI to add some — "no new dependencies")</li>
+</ul>
+<h2 id="step-3-read-it-like-an-editor">Step 3: Read it like an editor</h2>
+<p>You are not hunting for perfect style; you are triaging risk. Look for these <strong>frequent, findable problems</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Red flag</th>
+<th>Looks like</th>
+<th>Triage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope creep</strong></td>
+<td>Files touched that the task didn't involve</td>
+<td>Ask to revert to task scope</td>
+</tr>
+<tr>
+<td><strong>Hard-coded secrets</strong></td>
+<td>Something that looks like a key/token in the diff</td>
+<td>Remove &amp; rotate — non-negotiable</td>
+</tr>
+<tr>
+<td><strong>Lying logs</strong></td>
+<td><code>// this function is unused</code> on a function now used everywhere</td>
+<td>Ask the AI to recheck comments; stale comments are a classic</td>
+</tr>
+<tr>
+<td><strong>Missing error handling</strong></td>
+<td>Code assuming files exist, networks answer, users don't do weird things</td>
+<td>Ask: "handle the empty case / offline case / invalid input"</td>
+</tr>
+<tr>
+<td><strong>Over-engineering</strong></td>
+<td>A config system, three abstractions and a factory for one feature</td>
+<td>"Simplify to the smallest version that meets the done-definition"</td>
+</tr>
+<tr>
+<td><strong>Magic behaviour</strong></td>
+<td>Works but you can't explain why</td>
+<td>Refuse it. Ask the AI to explain plainly until you can</td>
+</tr>
+<tr>
+<td><strong>Copy-paste clones</strong></td>
+<td>The same function appears in two files</td>
+<td>"Deduplicate — keep one, referenced from both"</td>
+</tr>
+<tr>
+<td><strong>Suspicious URLs</strong></td>
+<td>Looks-plausible links/pages created wholesale</td>
+<td>Never trust AI-made links without checking</td>
+</tr>
+</tbody>
+</table>
+<p>You will not catch everything at first. You will get dramatically better in a month, mostly through the review <em>prompts</em> in the next section.</p>
+<h2 id="step-4-the-review-prompts-your-unfair-advantage">Step 4: The review prompts (your unfair advantage)</h2>
+<p>OpenCode can help you review — and free models are typically <em>better at critical reading than at perfect generation</em>. Use it:</p>
+<ul>
+<li>"Explain the changes from this last task as if I'm new: what, why, and what could go wrong."</li>
+<li>"What is the riskiest part of the change you just made? What would you test first?"</li>
+<li>"Review your own diff like a stern senior dev. List anything you'd be embarrassed about." (Great on good models, comedy on small ones — but both are useful.)</li>
+<li>"Write three quick test cases for <code>slugify()</code> — normal, empty, weird input." Then make it implement and run them.</li>
+</ul>
+<p>Also remember <code>/undo</code> and <code>/redo</code>: OpenCode keeps a history of change-sets, so iterating ("that's 90% right, but the toggle should sit top-left") is cheap. Undo does not replace Git — it replaces <em>re-prompting from scratch</em>.</p>
+<h2 id="step-5-the-accept-ritual">Step 5: The accept ritual</h2>
+<p>When satisfied, make the acceptance formal — this doubles as the end of the loop:</p>
+<pre><code class="language-bash">git add -A
+git commit -m &quot;add dark-mode toggle with saved preference&quot;
+</code></pre>
+<p>If instead you are <em>not</em> satisfied and the AI's second attempt gets worse rather than better:</p>
+<pre><code class="language-bash">git restore .     # back to your pre-task snapshot
+</code></pre>
+<p>…and then change the <em>prompt</em>, not the code. Two failed generations is a prompt problem; a fresh-scope task or a Plan-mode pass will usually do better than a third wild attempt.</p>
+<h2 id="a-note-on-formatters-and-standards">A note on formatters and standards</h2>
+<p>If your project uses a formatter (e.g. Prettier, Black), run it after AI changes and review <em>that</em> diff separately. Judging style is a waste of your review attention — the machine can settle style; you settle meaning. OpenCode can also be configured to run formatters automatically (its <code>formatter</code> settings), which is worth doing once your routine is stable.</p>
+<h2 id="review-on-a-budget-free-tier-friendly">Review on a budget (free-tier friendly)</h2>
+<p>Reviewing is one of the <em>cheapest</em> things a free model does well, since it is usually short-input, short-output: diffs, explanations, test suggestions. A frugal pattern that works surprisingly well:</p>
+<ol>
+<li>Big, careful <strong>Plan</strong> with your best/strongest allowed model (rare requests anyway).</li>
+<li><strong>Build</strong> with whatever model your tier handles comfortably.</li>
+<li><strong>Review</strong> — cheap, free-friendly — with the same or even a different capable model.</li>
+<li><strong>Commit</strong> locally. No tokens required for steps 3's Git part at all.</li>
+</ol>
+<h2 id="the-review-checklist-shrink-onto-a-card">The review checklist (shrink onto a card)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git diff --stat</code> — scope matches the task</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Full diff read (or read with AI narration where unclear)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Ran the thing; done-definition met; old features intact</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> No secrets or weird URLs entered the diff</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Self-review prompt: "riskiest part? would you be embarrassed anywhere?"</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Formatter run, if one exists</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Accepted → commit. Not accepted after two tries → <code>git restore .</code>, new prompt</li>
+</ul>
+<p>Review might feel slow as you read this. In practice it is minutes, and it is the exact habit that keeps the AI a tool rather than a hazard. Now, let's look honestly at what free tiers give you — and what they don't.</p>
+<hr />
+</main>
+<div class="nav">
+<a href="06-git-basics.html">← Chapter 6 — Git Basics (Your Safety Net)</a>
+<a href="08-limits-of-free-tiers.html">Chapter 8 — Limits of Free Tiers (and Working Within Them) →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

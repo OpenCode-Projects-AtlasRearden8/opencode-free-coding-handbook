@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Free AI Coding with OpenCode — full book · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark">
+<a href="index.html">Free AI Coding with OpenCode</a> · full-book edition</div></div>
+<main>
+<h1>Free AI Coding with OpenCode</h1>
+<div class="toc-list"><h2 style="margin-top:0.3rem">Contents (jump to chapter)</h2>
+<ol style="margin:0.5rem 0 0"><li><a href="#ch-0-index">Welcome — Read Me First</a></li><li><a href="#ch-1-01-what-is-opencode">Chapter 1 — What Is OpenCode?</a></li><li><a href="#ch-2-02-installing-opencode">Chapter 2 — Installing OpenCode</a></li><li><a href="#ch-3-03-picking-free-models">Chapter 3 — Picking Free Models</a></li><li><a href="#ch-4-04-permissions-and-safety">Chapter 4 — Permissions and Safety</a></li><li><a href="#ch-5-05-writing-good-task-prompts">Chapter 5 — Writing Good Task Prompts</a></li><li><a href="#ch-6-06-git-basics">Chapter 6 — Git Basics (Your Safety Net)</a></li><li><a href="#ch-7-07-reviewing-ai-changes">Chapter 7 — Reviewing AI Changes</a></li><li><a href="#ch-8-08-limits-of-free-tiers">Chapter 8 — Limits of Free Tiers (and Working Within Them)</a></li><li><a href="#ch-9-09-troubleshooting">Chapter 9 — Troubleshooting</a></li><li><a href="#ch-10-10-appendix-checklists">Chapter 10 — Appendix: The Checklists and Glossary</a></li></ol></div>
+<section id="ch-0-index"><h1>Welcome — Read Me First</h1><h2 id="who-this-book-is-for">Who this book is for</h2>
+<p>This book is for anyone who wants to use an AI coding assistant without spending money, without already being a professional programmer, and without feeling talked down to.</p>
+<p>Maybe you have an idea for a website, a tool for your small business, a script that saves you an hour a week, or just plain curiosity about how "AI coding" actually works. Maybe you have tried a chatbot in a browser and thought: <em>this is great at explaining, but I want it to actually build things.</em> This book will show you how to do that, for free, using a tool called <strong>OpenCode</strong>.</p>
+<p>You do not need a computer science degree. You do not need to buy anything. Everything in this book can be done with a regular computer, a normal internet connection, and free accounts (or no accounts at all, if you go the local route). Wherever something can go wrong, we will tell you how to notice it and how to fix it.</p>
+<p>One promise before we start: we will never assume you already know the thing we are explaining. Every term gets explained the first time it shows up. Every command is written out in full so you can copy it exactly. And if a step feels risky, we will say so — and show you how to make it safe first.</p>
+<h2 id="what-you-will-learn">What you will learn</h2>
+<p>By the end of this book, you will be able to:</p>
+<ol>
+<li><strong>Install OpenCode</strong> — a free, open-source AI coding agent that runs right in your terminal — on Windows, macOS, or Linux.</li>
+<li><strong>Pick a free model</strong> and connect it, choosing between cloud providers with free tiers, subscriptions you might already have, and models that run entirely on your own computer.</li>
+<li><strong>Set up guardrails</strong> so the AI can help you without overstepping — this is the <em>permissions and safety</em> part, and it matters more than most beginners realize.</li>
+<li><strong>Write prompts that actually produce good work</strong>, instead of vague requests that produce vague results.</li>
+<li><strong>Use Git</strong> — the industry-standard version control system — as your safety net, so no AI mistake can ever destroy your work.</li>
+<li><strong>Review AI changes like an editor</strong>, not a spectator, so you stay in charge of your own project.</li>
+<li><strong>Understand the limits of free tiers</strong> — what you get, what you don't, and how to work around it.</li>
+<li><strong>Fix problems yourself</strong> using a systematic troubleshooting chapter, because things <em>will</em> occasionally break, and that is normal.</li>
+</ol>
+<h2 id="how-to-read-this-book">How to read this book</h2>
+<p>You have two ways to read this:</p>
+<ul>
+<li><strong>As a book, chapter by chapter.</strong> Each chapter builds on the previous ones. If you are brand new to all of this, reading in order is worth it. The appendices at the end are checklists you will come back to again and again.</li>
+<li><strong>As a reference.</strong> Later, when you just need the troubleshooting table or the pre-commit checklist, jump straight to those chapters. They are written to stand on their own.</li>
+</ul>
+<h2 id="conventions-used-in-this-book">Conventions used in this book</h2>
+<table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opencode</code></td>
+<td>A command you type into your terminal. Typing rules: type the text after the <code>$</code> prompt you see in examples — never type the <code>$</code> itself.</td>
+</tr>
+<tr>
+<td><code>/connect</code>, <code>/models</code>, <code>/init</code></td>
+<td>Commands typed <em>inside</em> OpenCode (they start with a slash).</td>
+</tr>
+<tr>
+<td><strong>Bold</strong></td>
+<td>Something you click, press, or should pay extra attention to.</td>
+</tr>
+<tr>
+<td><em>Italic</em></td>
+<td>A term being introduced, or gentle emphasis.</td>
+</tr>
+<tr>
+<td>A checklist with empty boxes</td>
+<td>Something to actually do — print it, copy it, or tick it off mentally.</td>
+</tr>
+</tbody>
+</table>
+<p>Two terms come up constantly, so let's get them out of the way now:</p>
+<ul>
+<li><strong>Terminal</strong> (also called the command line, command prompt, or console): the text window where you type commands directly to your computer instead of clicking buttons. If you have never used one, don't worry — Chapter 2 walks you through your first commands, and you will need far fewer of them than you fear.</li>
+<li><strong>Model</strong>: the actual "brain" the AI uses — for example, a large language model such as Qwen Coder or GLM. OpenCode is the tool; the model is the engine inside it. Chapter 3 is all about choosing one.</li>
+</ul>
+<h2 id="map-of-the-book">Map of the book</h2>
+<table>
+<thead>
+<tr>
+<th>Chapter</th>
+<th>Title</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>What Is OpenCode?</td>
+<td>The mental model: what an AI coding agent is, and how it differs from a chatbot</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Installing OpenCode</td>
+<td>Every supported way to install it, step by step, then your first launch</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Picking Free Models</td>
+<td>Cloud free tiers, subscriptions you may already own, and fully local models</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Permissions and Safety</td>
+<td>Guardrails so the AI never oversteps; keeping your secrets and files safe</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Writing Good Task Prompts</td>
+<td>The prompt formula that turns vague wishes into finished work</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Git Basics</td>
+<td>Version control: your undo button for real life</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Reviewing AI Changes</td>
+<td>How to check AI-generated code before it becomes your problem</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Limits of Free Tiers</td>
+<td>What free actually buys you, and smart ways to work within it</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Troubleshooting</td>
+<td>A symptom → cause → fix table for everything that commonly breaks</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Appendix: Checklists</td>
+<td>The one-page routines you will reuse on every project</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-one-rule-of-this-book">The one rule of this book</h2>
+<p>If you remember nothing else, remember this:</p>
+<blockquote>
+<p><strong>Never let the AI be the only person who understands your project.</strong></p>
+</blockquote>
+<p>Free models are good — genuinely good — and OpenCode makes them pleasant to use. But you are the boss here. The AI proposes; you review, you decide, you commit. That single habit is what separates "the AI helped me build something I'm proud of" from "I have no idea what this folder even does anymore." Everything else in this book supports that habit.</p>
+<h2 id="about-the-fine-print">About the fine print</h2>
+<p>Prices, rate limits, model names, and menu options change constantly in the AI world. This book describes how things work as of late 2026, and the <em>techniques</em> here are durable — but the specific numbers (how many requests per day, how big a context window is) will drift. Whenever this book gives a specific limit, treat it as "a typical example, check the provider's current page for today's number." We will remind you of this in the chapters where it matters.</p>
+<p>Ready? Turn the page.</p>
+<hr /></section><hr><section id="ch-1-01-what-is-opencode"><h1>Chapter 1 — What Is OpenCode?</h1><h2 id="from-chatbot-to-coworkers">From chatbot to coworkers</h2>
+<p>You have probably used an AI chatbot in a browser. You type a question, it answers, you copy what you like. That is a <em>conversation</em>.</p>
+<p><strong>OpenCode is different.</strong> It is an <strong>AI coding agent</strong>: instead of just talking <em>about</em> your code, it can actually <em>work on it</em> — reading your files, writing changes, running commands in your terminal, and reporting back. The difference is the difference between asking a friend "how do I change a tire?" and handing your keys to a mechanic who does it while you watch.</p>
+<p>Here is what an agent can do that a plain chatbot cannot:</p>
+<table>
+<thead>
+<tr>
+<th>Ability</th>
+<th>Browser chatbot</th>
+<th>OpenCode (an agent)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Explain code</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Read the files in your project</td>
+<td>Only if you paste them</td>
+<td>Yes — it can open and read files itself</td>
+</tr>
+<tr>
+<td>Edit files directly</td>
+<td>No</td>
+<td>Yes, with your permission</td>
+</tr>
+<tr>
+<td>Run commands (tests, builds, Git)</td>
+<td>No</td>
+<td>Yes, with your permission</td>
+</tr>
+<tr>
+<td>Work across many files at once</td>
+<td>Painfully, via copy-paste</td>
+<td>Yes — that is its whole job</td>
+</tr>
+<tr>
+<td>Remember your project's style</td>
+<td>No</td>
+<td>Yes — via an <code>AGENTS.md</code> file it writes for your project</td>
+</tr>
+</tbody>
+</table>
+<p>That last row deserves a quick explanation. When you first run OpenCode in a project, you type <code>/init</code>. OpenCode looks around your project, figures out what it is (a blog? a data-cleaning script? a shop?), and writes an <code>AGENTS.md</code> file — think of it as a <em>welcome note to the AI</em>, describing the project layout, the conventions, and the commands that build and test it. From then on, every session starts with OpenCode already knowing the house rules.</p>
+<h2 id="what-opencode-actually-is">What OpenCode actually is</h2>
+<p>A few facts, so you know what you are getting into:</p>
+<ul>
+<li><strong>Open source.</strong> The code is public; anyone can inspect it. You are trusting software you can read.</li>
+<li><strong>Runs in your terminal.</strong> The main interface is a friendly text-based app (called a <strong>TUI</strong> — a <em>text user interface</em>). There is also a desktop app and an IDE extension, but this book focuses on the terminal, because it is the most reliable path and teaches you the most.</li>
+<li><strong>Model-agnostic.</strong> OpenCode does not lock you to one company. It supports <strong>75+ providers</strong> — big labs, small labs, and your own computer. That is exactly why a book about <em>free</em> AI coding is possible: you can point OpenCode at whatever is free today.</li>
+<li><strong>Permission-aware.</strong> By default it asks before editing files and before running commands. Chapter 4 turns this dial up or down.</li>
+</ul>
+<h2 id="the-mental-model-a-junior-developer-on-your-team">The mental model: a junior developer on your team</h2>
+<p>Beginners often swing between two extremes: treating the AI like a magic oracle, or treating it like a hostile autocomplete. Neither is useful.</p>
+<p>The model that works is this: <strong>you have hired a junior developer who is extremely fast, extremely tireless, extremely confident — and who does not know your project yet.</strong></p>
+<p>What follows from that little story:</p>
+<ol>
+<li><strong>You have to give real instructions.</strong> "Make it better" is not spec. "Add a search box to the top of the notes page that filters by title, and show 'no results' when nothing matches" is.</li>
+<li><strong>You have to review the work.</strong> Fast and confident means fast and confident <em>mistakes</em>. Not malicious ones — just ordinary misunderstandings. Your review is the quality control. Chapter 7 gives you the routine.</li>
+<li><strong>You should protect the project.</strong> A careful senior developer never lets someone push straight to the live product with no review and no undo. Chapter 6 teaches you Git, which is exactly that protection.</li>
+<li><strong>You can lean on it for the boring parts.</strong> Explaining unfamiliar code, writing repetitive boilerplate, renaming things everywhere, drafting tests — this is where agents shine, and where they free <em>you</em> to think.</li>
+</ol>
+<p>If you internalize the junior-developer model, everything else in this book will feel obvious rather than fussy.</p>
+<h2 id="the-five-step-working-loop">The five-step working loop</h2>
+<p>Almost everything you do with OpenCode follows the same small loop. Learn it once; use it forever:</p>
+<ol>
+<li><strong>Ask.</strong> Describe what you want, with context. (Chapter 5.)</li>
+<li><strong>Plan.</strong> For anything bigger than a small tweak, press <strong>Tab</strong> to switch OpenCode into <strong>Plan mode</strong>. In Plan mode the AI is <em>forbidden</em> from changing files — it can only propose an approach. You read the plan, correct it, and iterate until it matches what you actually wanted.</li>
+<li><strong>Build.</strong> Press <strong>Tab</strong> again to return to Build mode and say "go ahead." The AI edits files, runs commands, and narrates what it did.</li>
+<li><strong>Review.</strong> Look at what changed (<code>git diff</code>, Chapter 7), ask follow-up questions, and test the result.</li>
+<li><strong>Undo or proceed.</strong> Happy? Commit your work with Git. Unhappy? Type <code>/undo</code> to back out the changes and try again with a better prompt. OpenCode keeps a history, so you can also <code>/redo</code> if you change your mind — and <code>/undo</code> more than once to walk back further.</li>
+</ol>
+<blockquote>
+<p><strong>Why Plan mode matters.</strong> Beginners pay for AI mistakes in churn: "no, not like that — undo — try again." Plans cost seconds; wrong builds cost minutes and leave a mess. The pros you watch in AI-coding videos are mostly just people who insist on good plans.</p>
+</blockquote>
+<h2 id="a-tiny-tour-of-the-terminology">A tiny tour of the terminology</h2>
+<p>You will meet these words constantly. Here is the whole cheat sheet in one table — bookmark this page.</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Plain meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Model</strong></td>
+<td>The AI "brain" — e.g., Qwen 3 Coder, GLM, GPT, Claude. Different models differ hugely at coding tasks.</td>
+</tr>
+<tr>
+<td><strong>Provider</strong></td>
+<td>The company or service that serves a model — OpenAI, Anthropic, Groq, Google, your own machine. Usually you need an account or a programme installed.</td>
+</tr>
+<tr>
+<td><strong>API key</strong></td>
+<td>A long password-like string that proves to a provider that you are you. Keep it secret; never paste it into code you share.</td>
+</tr>
+<tr>
+<td><strong>Token</strong></td>
+<td>The unit of AI text — about ¾ of a word. Providers bill and limit by tokens. Your prompt uses input tokens; the answer uses output tokens.</td>
+</tr>
+<tr>
+<td><strong>Context window</strong></td>
+<td>How much text (your files + conversation) the model can consider at once, measured in tokens. Too-small context = the AI "forgets" things you said.</td>
+</tr>
+<tr>
+<td><strong>Free tier</strong></td>
+<td>A no-cost usage level offered by a provider, usually with daily/monthly limits.</td>
+</tr>
+<tr>
+<td><strong>TUI</strong></td>
+<td>Text user interface — OpenCode's terminal app.</td>
+</tr>
+<tr>
+<td><strong>Tool</strong></td>
+<td>An ability the agent can use: read a file, edit a file, run a shell command, search the web. Each tool can have its own permission rule.</td>
+</tr>
+<tr>
+<td><strong>Permission</strong></td>
+<td>Your rulebook: <code>allow</code>, <code>ask</code>, or <code>deny</code> for each tool. Chapter 4.</td>
+</tr>
+<tr>
+<td><strong>Agent mode</strong></td>
+<td>Build mode vs Plan mode — whether the AI may change things or only propose.</td>
+</tr>
+<tr>
+<td><strong>AGENTS.md</strong></td>
+<td>The project guidebook file that OpenCode reads at startup; <code>/init</code> creates it.</td>
+</tr>
+<tr>
+<td><strong>Repository (repo)</strong></td>
+<td>A folder tracked by Git, so changes are recorded and reversible. Chapter 6.</td>
+</tr>
+<tr>
+<td><strong>Diff</strong></td>
+<td>The line-by-line "what changed" view. How you review AI work.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-opencode-is-not">What OpenCode is <em>not</em></h2>
+<p>To keep expectations calibrated:</p>
+<ul>
+<li><strong>It is not a one-click app builder.</strong> It will not guess your business away from you. It needs your decisions, clearly stated. (Chapter 5 fixes that.)</li>
+<li><strong>It is not infallible.</strong> Models sometimes misread intent, invent a function that does not exist, or quietly break a part of your project you did not mention. This is normal, expected, and fully recoverable with the loop above — especially if you have Git.</li>
+<li><strong>It is not free of <em>judgment</em>.</strong> Even with a free model, <em>you</em> are responsible for what it produces and what you ship. Reviewing is not optional bureaucracy; it is the job.</li>
+</ul>
+<h2 id="your-first-look-ahead">Your first look ahead</h2>
+<p>In Chapter 2, you will install OpenCode in about ten minutes using one command, open it in a practice folder, and take it for a spin. Then Chapter 3 gets you a capable model <em>without paying anyone anything</em>.</p>
+<p>If you ever feel lost in the jargon, come back to the table above. Every beginner is confused by this vocabulary for roughly a week; after that it is simply how you talk.</p>
+<hr /></section><hr><section id="ch-2-02-installing-opencode"><h1>Chapter 2 — Installing OpenCode</h1><p>Installation sounds scary if you have never done "developer stuff" before. Good news: it is usually <strong>one command</strong>, and this chapter shows every option with full copy-paste instructions. Ten minutes from now you will have the tool running.</p>
+<h2 id="step-0-get-a-decent-terminal-first">Step 0: Get a decent terminal first</h2>
+<p>OpenCode lives in the <strong>terminal</strong>, so you want a terminal that renders it well. If you are on Windows, the single most important advice in this chapter is: <strong>use WSL</strong> (Windows Subsystem for Linux). Windows' classic console (<code>cmd.exe</code>) struggles with modern text interfaces. WSL gives you a real Linux environment inside Windows, and OpenCode's own documentation recommends it.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Recommended terminal</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td><strong>WSL</strong> (with Windows Terminal as the window)</td>
+<td>Full compatibility; skips most rendering problems. See Microsoft's "Install WSL" guide, then continue this chapter <em>inside</em> WSL.</td>
+</tr>
+<tr>
+<td>Windows (no WSL)</td>
+<td>Windows Terminal</td>
+<td>Workable via Chocolatey/Scoop/npm, but expect occasional display quirks.</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>iTerm2, Ghostty, Kitty, WezTerm, or plain <strong>Terminal.app</strong></td>
+<td>All fine; Ghostty and Kitty are OpenCode's favourite picks.</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>Ghostty, Kitty, Alacritty, WezTerm</td>
+<td>Nearly any modern emulator works. Very old ones (or plain <code>xterm</code>) can be flaky.</td>
+</tr>
+</tbody>
+</table>
+<p>Installing WSL (once, in PowerShell as Administrator):</p>
+<pre><code class="language-bash">wsl --install
+</code></pre>
+<p>Then restart your machine and open the new "Ubuntu" app. Everything below happens in that window, or in Terminal.app/Ghostty on Mac and Linux.</p>
+<h2 id="step-1-install-opencode">Step 1: Install OpenCode</h2>
+<p>Pick <strong>one</strong> method from the table — the first one that matches you. All methods produce the same <code>opencode</code> command.</p>
+<table>
+<thead>
+<tr>
+<th>Your situation</th>
+<th>Command</th>
+<th>Where to run it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux, macOS, or WSL (easiest)</td>
+<td><code>curl</code> one-liner — see just below the table</td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>You already use <strong>Node.js</strong></td>
+<td><code>npm install -g opencode-ai</code></td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>macOS/Linux with <strong>Homebrew</strong></td>
+<td><code>brew install anomalyco/tap/opencode</code></td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>Arch Linux</td>
+<td><code>sudo pacman -S opencode</code> (stable) or <code>paru -S opencode-bin</code> (newest)</td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>Windows without WSL</td>
+<td><code>choco install opencode</code> <strong>or</strong> <code>scoop install opencode</code> <strong>or</strong> <code>npm install -g opencode-ai</code></td>
+<td>PowerShell</td>
+</tr>
+<tr>
+<td>You prefer containers</td>
+<td><code>docker run -it --rm ghcr.io/anomalyco/opencode</code></td>
+<td>Anywhere Docker runs</td>
+</tr>
+</tbody>
+</table>
+<p>Note the <code>|</code> in the curl line below is a real pipe character. Copy it exactly as printed:</p>
+<pre><code class="language-bash">curl -fsSL https://opencode.ai/install | bash
+</code></pre>
+<h3 id="verifying-the-install">Verifying the install</h3>
+<p>Whatever method you chose, check it worked:</p>
+<pre><code class="language-bash">opencode --version
+</code></pre>
+<p>You should see a version number print and the shell come back. If instead you see <code>command not found</code>, your shell does not yet know where <code>opencode</code> lives. Two usual causes:</p>
+<ol>
+<li><strong>You just installed it</strong> and the shell has a stale list of commands. Close the terminal window completely, open a fresh one, and try again. This fixes it surprisingly often.</li>
+<li><strong>The install directory is not on your PATH</strong> (the list of folders your shell searches). The npm method is the classic case — try <code>npx opencode</code> as a stopgap, or find the folder npm used (<code>npm config get prefix</code>) and read Troubleshooting (Chapter 9) for the PATH fix.</li>
+</ol>
+<h3 id="keeping-it-updated">Keeping it updated</h3>
+<p>AI tooling moves quickly; update every few weeks:</p>
+<pre><code class="language-bash">opencode upgrade        # if your version supports it
+</code></pre>
+<p>or simply re-run the install command for your method — installers happily overwrite an older copy. Check what you have with <code>opencode --version</code>.</p>
+<h3 id="uninstalling-for-completeness">Uninstalling (for completeness)</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Uninstall command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>npm</td>
+<td><code>npm uninstall -g opencode-ai</code></td>
+</tr>
+<tr>
+<td>Homebrew</td>
+<td><code>brew uninstall opencode</code></td>
+</tr>
+<tr>
+<td>Arch</td>
+<td><code>sudo pacman -R opencode</code></td>
+</tr>
+<tr>
+<td>Chocolatey</td>
+<td><code>choco uninstall opencode</code></td>
+</tr>
+<tr>
+<td>curl script</td>
+<td>Delete the <code>opencode</code> binary from the folder the installer reported (often <code>~/.opencode/bin</code> or similar), then remove that folder from PATH</td>
+</tr>
+</tbody>
+</table>
+<h2 id="step-2-first-launch">Step 2: First launch</h2>
+<p>Now for your first ten wins. Work through this checklist in order — do not skip the practice folder; it keeps the mess far from anything important.</p>
+<p><strong>Your first-session checklist:</strong></p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Have the version confirmed (<code>opencode --version</code> works)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Create a playground, e.g. <code>mkdir ~/opencode-playground &amp;&amp; cd ~/opencode-playground</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Start the program: <code>opencode</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> See the chat interface</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Exit safely and re-launch it once, so the start/stop cycle is familiar</li>
+</ul>
+<p>Type <code>opencode</code> and press <strong>Enter</strong>:</p>
+<pre><code class="language-bash">cd ~/opencode-playground
+opencode
+</code></pre>
+<p>You will drop into the TUI: a chat area, a prompt at the bottom, and a help line. The basics:</p>
+<ul>
+<li><strong>Type a message and press Enter</strong> to send it.</li>
+<li><strong><code>Ctrl+C</code> twice, or type <code>/exit</code></strong> to leave.</li>
+<li><strong><code>/help</code></strong> lists every special command.</li>
+</ul>
+<p>Commands that start with <code>/</code> go to OpenCode itself, not to the AI <code>—</code> think of them as the program's menu. You will use these five constantly:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/help</code></td>
+<td>List all commands and key binds</td>
+</tr>
+<tr>
+<td><code>/connect</code></td>
+<td>Attach a provider/model (Chapter 3 does this together with you)</td>
+</tr>
+<tr>
+<td><code>/models</code></td>
+<td>Pick or switch the model you are using</td>
+</tr>
+<tr>
+<td><code>/init</code></td>
+<td>Have OpenCode analyse the current folder and write <code>AGENTS.md</code></td>
+</tr>
+<tr>
+<td><code>/undo</code>, <code>/redo</code></td>
+<td>Back out or re-apply the last set of changes</td>
+</tr>
+</tbody>
+</table>
+<p>A few keys worth knowing early:</p>
+<ul>
+<li><strong>Tab</strong> toggles <strong>Plan ↔ Build</strong> mode (bottom-right shows which you are in).</li>
+<li><strong>@</strong> while typing lets you fuzzy-search and reference files in this project — the single most useful beginner key.</li>
+<li><strong>Drag an image</strong> into the window to attach a screenshot for the AI to look at.</li>
+</ul>
+<p>If the display looks scrambled (misaligned lines, colours everywhere), your terminal is the culprit, not you — return to the table at the top and try Ghostty, WezTerm, or Kitty. Chapter 9 has more fixes.</p>
+<h2 id="step-3-meet-agentsmd-your-projects-welcome-note">Step 3: Meet <code>AGENTS.md</code> (your project's welcome note)</h2>
+<p>While still in the playground, run:</p>
+<pre><code>/init
+</code></pre>
+<p>OpenCode will look around, and in an empty folder it has little to say — that is fine and quick. In a real project it writes an <code>AGENTS.md</code> file in the project root describing structure, style, and how to run things. Two habits to build now:</p>
+<ol>
+<li><strong>Re-run <code>/init</code> after big structural changes</strong> so the welcome note stays accurate.</li>
+<li><strong>Commit <code>AGENTS.md</code> to Git</strong> (Chapter 6). It is part of your project, and committing it means the AI (and collaborators) always have the same briefing.</li>
+</ol>
+<p>Later, you can <em>hand-edit</em> <code>AGENTS.md</code> to add house rules, e.g. "always answer in plain English" or "never edit files in <code>./archive</code>". OpenCode reads it as instructions every session.</p>
+<h2 id="step-4-point-opencode-at-a-model">Step 4: Point OpenCode at a model</h2>
+<p>Right now OpenCode is a car with no engine: it has no model to think with. The <code>/connect</code> command walks you through attaching one — another provider, a subscription you already own, or a model running on your own machine. That is the entire subject of Chapter 3, which is where we go next.</p>
+<h2 id="where-your-credentials-live-so-you-stop-worrying">Where your credentials live (so you stop worrying)</h2>
+<p>When you paste an API key during <code>/connect</code>, OpenCode stores it on your machine — in <code>~/.local/share/opencode/auth.json</code> on Linux/macOS/WSL — not inside your project folder. Three consequences:</p>
+<ul>
+<li>You <strong>can</strong> commit your project to git without leaking keys (but check anyway — Chapter 6 shows how).</li>
+<li>Anyone with access to your user account can read that file, like any password cache.</li>
+<li>If you suspect it leaked, revoke the key at the provider's website, not by deleting the file — then re-connect.</li>
+</ul>
+<h2 id="common-first-run-feelings-and-why-they-are-fine">Common first-run feelings (and why they are fine)</h2>
+<ul>
+<li><em>"The terminal feels alien."</em> It is a muscle, not a talent. You will use about six commands for 90% of your work, and this book prints every one.</li>
+<li><em>"I'm afraid I'll break something."</em> With Git (Chapter 6) you gain a time machine. Until then, stay in your playground folder.</li>
+<li><em>"The AI's answers feel vague."</em> Almost always the prompt, not the tool — and Chapter 5 is entirely about prompts.</li>
+</ul>
+<h2 id="checkbox-recap-of-this-chapter">Checkbox recap of this chapter</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Chose and opened a good terminal (WSL on Windows)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Installed OpenCode with one command</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>opencode --version</code> prints a version</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Launched and exited the TUI</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Ran <code>/init</code> in a practice folder</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Know where <code>~/.local/share/opencode/auth.json</code> lives</li>
+</ul>
+<p>When every box is ticked, you are ready to give your agent a brain — for free.</p>
+<hr /></section><hr><section id="ch-3-03-picking-free-models"><h1>Chapter 3 — Picking Free Models</h1><p>OpenCode is the tool; the <strong>model</strong> is the engine. This chapter gets you an engine without spending money, and explains the honest trade-offs you are making.</p>
+<h2 id="what-free-really-means">What "free" really means</h2>
+<p>"Free" in this world comes in four flavours. You will meet all of them, so learn to tell them apart:</p>
+<table>
+<thead>
+<tr>
+<th>Flavour</th>
+<th>What it is</th>
+<th>Catch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free tier (cloud)</strong></td>
+<td>A hosted model you can call from OpenCode with a signup, limited by requests per day/month or tokens</td>
+<td>Limits, slower queues, sometimes weaker models served</td>
+</tr>
+<tr>
+<td><strong>Subscription you already own</strong></td>
+<td>A ChatGPT Plus, GitHub Copilot, or GitLab plan you <em>already pay for</em> elsewhere — OpenCode can use it for coding with zero setup</td>
+<td>Not "free," but no <em>new</em> money; subject to that plan's caps</td>
+</tr>
+<tr>
+<td><strong>Free credits / promotional</strong></td>
+<td>Start-up providers giving new accounts a helping stack of tokens</td>
+<td>Runs out; better as a taste than a plan</td>
+</tr>
+<tr>
+<td><strong>Local models</strong></td>
+<td>Open-weights models running on <em>your</em> computer via Ollama, LM Studio, or llama.cpp</td>
+<td>No limits ever, but your hardware and patience are the budget</td>
+</tr>
+</tbody>
+</table>
+<p>The overriding truth, stated kindly: <strong>the free world is real and good.</strong> Free and open-weights coding models — the Qwen-Coder family, GLM series, DeepSeek-Coder variants, Llama, and friends — are routinely capable enough to build small projects, clean data, write scripts, and maintain a website. You are not choosing between "free" and "useful." You are choosing speed, patience, and privacy trade-offs, which the table below makes concrete.</p>
+<table>
+<thead>
+<tr>
+<th>Trade-off axis</th>
+<th>Cloud free tier</th>
+<th>Local model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cost</td>
+<td>0 (with caps)</td>
+<td>0 (with your electricity)</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Usually fast, sometimes throttled</td>
+<td>Depends on your machine</td>
+</tr>
+<tr>
+<td>Privacy</td>
+<td>Your code travels to the provider's servers</td>
+<td>Code never leaves your machine</td>
+</tr>
+<tr>
+<td>Quality ceiling</td>
+<td>Usually higher</td>
+<td>Smaller models, smaller context</td>
+</tr>
+<tr>
+<td>Setup</td>
+<td>Account + API key</td>
+<td>Install a program + download model files</td>
+</tr>
+<tr>
+<td>Limits</td>
+<td>Daily/monthly caps</td>
+<td>None — run it till your fan gives up</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-menu-of-free-paths">The menu of free paths</h2>
+<p>Here is the landscape as of late 2026. <strong>Prices and limits change constantly</strong> — treat every number here as an example, and the provider's own page as the truth. OpenCode supports all of these via <code>/connect</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>What you get</th>
+<th>Rough shape of the limits</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GitHub Copilot (free plan)</strong></td>
+<td>Coding models through your GitHub account; device-code login, no API key to manage</td>
+<td>Monthly request/message caps on the free plan; the best models often need paid tiers</td>
+<td>Beginners who already have GitHub; the smoothest login</td>
+</tr>
+<tr>
+<td><strong>ChatGPT Plus/Pro</strong> (if you own it)</td>
+<td>OpenCode connects with your existing subscription via browser sign-in</td>
+<td>Your subscription's usage caps</td>
+<td>People who already pay for one; no new account</td>
+</tr>
+<tr>
+<td><strong>Google AI Studio (Gemini)</strong></td>
+<td>A generous free tier on Gemini models via an API key from AI Studio</td>
+<td>Daily request caps; data may be used to improve service on the free tier</td>
+<td>Big context windows and strong general ability</td>
+</tr>
+<tr>
+<td><strong>Groq</strong></td>
+<td>Very fast serving of open models (e.g. Llama, Qwen families)</td>
+<td>Free tier with rate limits</td>
+<td>Lightning-fast iteration on free-weights models</td>
+</tr>
+<tr>
+<td><strong>Cerebras</strong></td>
+<td>Open models such as Qwen-Coder at very high speed</td>
+<td>Free tier with rate limits</td>
+<td>Same as Groq — pick whichever is smoothest that week</td>
+</tr>
+<tr>
+<td><strong>NVIDIA (build.nvidia.com)</strong></td>
+<td>Free access to Nemotron and many open models</td>
+<td>Per-model rate limits</td>
+<td>Sampling many open models free</td>
+</tr>
+<tr>
+<td><strong>OpenRouter (<code>:free</code> models)</strong></td>
+<td>A menu-service routing to many labs; models suffixed <code>:free</code> cost nothing</td>
+<td>Daily caps on free models; quality varies</td>
+<td>Trying lots of models without committing</td>
+</tr>
+<tr>
+<td><strong>Hugging Face Inference</strong></td>
+<td>Free monthly inference credits across many providers</td>
+<td>Credits refresh monthly</td>
+<td>Occasional use of trendy new models</td>
+</tr>
+<tr>
+<td><strong>Ollama (local)</strong></td>
+<td>Open-weights models entirely on your machine</td>
+<td>Only your RAM/GPU/disk</td>
+<td>Privacy, offline work, unlimited practice</td>
+</tr>
+<tr>
+<td><strong>LM Studio (local)</strong></td>
+<td>Point-and-click app for downloading and serving local models</td>
+<td>Same as Ollama</td>
+<td>Beginners who prefer windows over commands</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-two-setup-recipes-youll-actually-need">The two setup recipes you'll actually need</h2>
+<h3 id="recipe-a-github-copilot-the-smoothest-cloud-start">Recipe A: GitHub Copilot (the smoothest cloud start)</h3>
+<ol>
+<li>Make sure you have a GitHub account (free to create).</li>
+<li>In OpenCode, run <code>/connect</code>, search for and choose <strong>GitHub Copilot</strong>.</li>
+<li>OpenCode shows a short code and the address <code>github.com/login/device</code>. Open that page in a browser, enter the code, and approve.</li>
+<li>Back in OpenCode, run <code>/models</code> and pick a model.</li>
+</ol>
+<p>Notes worth knowing:</p>
+<ul>
+<li>Some models require paid Copilot plans (Pro+); the free plan's models still work fine for learning.</li>
+<li>If you later see "model requires a higher plan" errors, pick a different model from <code>/models</code> — nobody is charging you here, the menu is just saying <em>that one's not in your tier</em>.</li>
+</ul>
+<h3 id="recipe-b-ollama-the-local-unlimited-start">Recipe B: Ollama (the local, unlimited start)</h3>
+<p>Ollama runs models on your own computer. Nothing leaves your machine — which matters for medical-adjacent work, small business records, or anything private.</p>
+<ol>
+<li>Install Ollama from <code>ollama.com</code> (Windows and macOS installers; Linux a one-line script).</li>
+<li>Pull a coding model from your terminal, e.g.:</li>
+</ol>
+<p><code>bash
+   ollama pull qwen3-coder:7b</code></p>
+<p>(Model names and size tags change — browse the library at ollama.com/library and pick a <em>coder</em> model that fits your hardware. As a rule of thumb: about 8 GB of RAM will run a 7–8B model; 16 GB or a modest GPU comfortably runs the bigger useful ones.)
+3. Tell OpenCode about the provider by adding this to <code>~/.config/opencode/opencode.json</code> (create the file if needed):</p>
+<p><code>json
+   {
+     "$schema": "https://opencode.ai/config.json",
+     "provider": {
+       "ollama": {
+         "npm": "@ai-sdk/openai-compatible",
+         "name": "Ollama (local)",
+         "options": {
+           "baseURL": "http://localhost:11434/v1"
+         },
+         "models": {
+           "qwen3-coder:7b": {
+             "name": "Qwen3-Coder 7B (local)"
+           }
+         }
+       }
+     }
+   }</code></p>
+<ol start="4">
+<li>Restart OpenCode, run <code>/models</code>, and you will see your local model listed.</li>
+</ol>
+<p>Two local-model tips that save hours:</p>
+<ul>
+<li><strong>Increase the context size</strong>: if tool calls misbehave or the model "forgets," raise Ollama's <code>num_ctx</code> (start around 16k–32k). Small default contexts are the number-one cause of flaky local behaviour.</li>
+<li><strong>Check the model is running</strong>: <code>ollama ps</code> shows what is loaded; <code>ollama run qwen3-coder:7b</code> lets you chat with it directly to confirm it works outside OpenCode.</li>
+</ul>
+<h2 id="the-real-selection-criteria-beyond-is-it-free">The real selection criteria (beyond "is it free")</h2>
+<p>Tick these five boxes whenever you evaluate a free model:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Does it support tool calls?</strong> OpenCode is an <em>agent</em> — it needs models that can call tools (read/edit files, run commands). Non-tool-calling models can chat but will fail at agentic jobs. Coder-focused models (Qwen-Coder, DeepSeek-Coder, big GLM variants, frontier models) are the safe picks.</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Is the context window big enough?</strong> Your whole project's key files and the conversation must fit. If the model has ~8k tokens of context, ambitious tasks will break in confusing ways. Prefer comfortable contexts (128k is common this decade).</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>What are the actual rate limits today?</strong> Check the provider's own pricing/limits page — not this book — before planning a work day around it.</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>What is the privacy story?</strong> Cloud free tiers often <em>may use your data for training</em>. If the content is sensitive (client data, health information, business records), use a paid key or a local model. Say it plainly: <em>do not paste anything you would not put on a postcard through a public free tier.</em></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Is there a "plan" model and a "build" model?</strong> A common free-tier strategy: use a strong model for planning (rare, precious requests) and a faster one for execution (plentiful requests). Chapter 8 builds on this.</li>
+</ul>
+<h2 id="a-simple-starting-recommendation">A simple starting recommendation</h2>
+<p>If you want one default answer rather than a research project:</p>
+<ul>
+<li><strong>Comfortable and social</strong>: GitHub Copilot's free plan (Recipe A) — fewest moving parts if you already have GitHub.</li>
+<li><strong>Private and unlimited</strong>: a Qwen3-Coder-class local model via Ollama (Recipe B) — the "free forever" path, gated by your hardware.</li>
+<li><strong>Experimentation budget</strong>: OpenRouter's <code>:free</code> suffix models or Groq/Cerebras/NVIDIA free tiers — great for taste-testing models before committing to one.</li>
+</ul>
+<p>And remember: switching models is <strong>one command</strong> (<code>/models</code>), so this decision is cheap to revisit. You are not marrying a model; you are hiring per task.</p>
+<h2 id="checklist-of-this-chapter">Checklist of this chapter</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You can name the four flavours of "free"</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Connected at least one cloud model via <code>/connect</code>, or</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Set up Ollama with a local coding model in <code>opencode.json</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>/models</code> shows your choice and you have chatted with it once</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You checked the provider's current limits page (today's numbers, not a book's)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You know the privacy posture of whichever model you picked</li>
+</ul>
+<hr /></section><hr><section id="ch-4-04-permissions-and-safety"><h1>Chapter 4 — Permissions and Safety</h1><p>Here is the sentence that makes this chapter matter: <strong>an agent that can edit files and run commands is powerful, and power without guardrails is how beginners get hurt.</strong> OpenCode ships with sensible guardrails. This chapter shows you how they work, how to tune them, and how to develop habits that make AI coding safe even on a free model.</p>
+<h2 id="the-permission-dial-allow-ask-deny">The permission dial: allow, ask, deny</h2>
+<p>OpenCode uses a <code>permission</code> config to decide, for every action it wants to take, one of three answers:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Meaning</th>
+<th>Feels like</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"allow"</code></td>
+<td>Runs without asking you</td>
+<td>Trust-but-log</td>
+</tr>
+<tr>
+<td><code>"ask"</code></td>
+<td>Prompts you; you decide each time</td>
+<td>Traffic light on yellow</td>
+</tr>
+<tr>
+<td><code>"deny"</code></td>
+<td>Blocks the action entirely</td>
+<td>Hard fence</td>
+</tr>
+</tbody>
+</table>
+<p>Every tool can get its own setting. The main keys, straight from OpenCode's design:</p>
+<table>
+<thead>
+<tr>
+<th>Permission key</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>read</code></td>
+<td>Reading files (rule matches the file path). <strong><code>.env</code> files are denied by default</strong> — see below.</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td>All file changes (edit, write, patch)</td>
+</tr>
+<tr>
+<td><code>shell</code></td>
+<td>Terminal commands (matches the command text, e.g. <code>git status --porcelain</code>)</td>
+</tr>
+<tr>
+<td><code>glob</code> / <code>grep</code></td>
+<td>File searches</td>
+</tr>
+<tr>
+<td><code>webfetch</code> / <code>websearch</code></td>
+<td>Fetching URLs / searching the web</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>Spawned subagents</td>
+</tr>
+<tr>
+<td><code>skill</code></td>
+<td>Loaded skills</td>
+</tr>
+<tr>
+<td><code>external_directory</code></td>
+<td>Touching files <strong>outside</strong> the folder you started OpenCode in (asks by default)</td>
+</tr>
+<tr>
+<td><code>doom_loop</code></td>
+<td>Detects the AI repeating the identical failing tool call three times (asks by default)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-the-rules-live-and-how-they-match">Where the rules live, and how they match</h2>
+<p>Put rules in your OpenCode config — globally at <code>~/.config/opencode/opencode.json</code>, or per-project in <code>opencode.json</code> at the project root. The simplest global stance:</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;permission&quot;: {
+    &quot;*&quot;: &quot;ask&quot;,
+    &quot;edit&quot;: &quot;allow&quot;
+  }
+}
+</code></pre>
+<p>This says: let the AI edit files freely (you will review via Git anyway — Chapter 6), but <strong>ask before every terminal command, web fetch, and everything else</strong>. That is a wonderful beginner posture. It is a little more clicky, but each prompt is a free safety lesson about what the AI is currently doing.</p>
+<p>Rules match with patterns, and <strong>the last matching rule wins</strong>. A common and sensible pattern: allow safe read-only commands, ask about the world, deny the genuinely dangerous:</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;permission&quot;: {
+    &quot;shell&quot;: {
+      &quot;*&quot;: &quot;ask&quot;,
+      &quot;git *&quot;: &quot;allow&quot;,
+      &quot;npm *&quot;: &quot;allow&quot;,
+      &quot;grep *&quot;: &quot;allow&quot;,
+      &quot;rm *&quot;: &quot;deny&quot;
+    }
+  }
+}
+</code></pre>
+<p>Notes on pattern matching, because everyone trips here once:</p>
+<ul>
+<li><code>*</code> matches anything; <code>?</code> matches exactly one character.</li>
+<li><code>"grep *"</code> allows <code>grep thing file.txt</code>. Bare <code>"grep"</code> would <em>not</em> cover <code>grep</code> with arguments — patterns must include the wildcard to cover arguments.</li>
+<li><strong>Last rule wins</strong>, so specificity goes <em>after</em> the catch-all. In the example above, <code>rm *</code> comes after <code>"*"</code> on purpose.</li>
+<li>Also useful: <code>"git push *": "deny"</code> in any config where you never want the AI to publish anything. This book's default stance is exactly that: the AI reads, writes, and commits locally; <em>pushing to the internet stays your job</em>.</li>
+</ul>
+<p>You can also restrict where OpenCode may even look. Paths outside the start folder are gated by <code>external_directory</code> (asks by default). Keep it that way unless you have a reason.</p>
+<h2 id="what-ask-looks-like-and-the-three-answers">What "ask" looks like, and the three answers</h2>
+<p>When OpenCode prompts you, you pick from:</p>
+<ul>
+<li><strong>once</strong> — approve this single request;</li>
+<li><strong>always</strong> — approve this <em>category</em> of requests for the rest of the session (e.g. all <code>git status*</code> commands);</li>
+<li><strong>reject</strong> — no.</li>
+</ul>
+<p>Beginner guidance: read the prompt. It shows exactly what will run. If a shell command surprises you — press reject, then ask the AI why it wanted to run that. Surprises are information. If nothing surprises you any more, that is your cue that <code>always</code> is safe for that category.</p>
+<h2 id="auto-mode-speed-with-a-fence">Auto mode: speed with a fence</h2>
+<p><code>opencode --auto</code> auto-approves everything that would normally ask — <strong>except rules explicitly set to <code>deny</code></strong>, which still bite. It is great for long, well-understood tasks on a safe project. It is <em>not</em> for your first week. If you use it, keep at least these denies in place:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>rm *</code> (or at minimum any pattern touching files you care about)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git push *</code> (publishing stays manual)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>webfetch</code> / <code>websearch</code> if you want the AI browsing only when you say so</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>.env</code> reads (the default denies them; keep it that way)</li>
+</ul>
+<h2 id="secrets-the-non-negotiables">Secrets: the non-negotiables</h2>
+<p>Some rules in this book are habits; these are laws:</p>
+<ol>
+<li><strong>Never put API keys in files inside your project.</strong> Keys belong in OpenCode's auth store (<code>~/.local/share/opencode/auth.json</code>) or environment variables — nowhere else, not even "temporarily."</li>
+<li><strong>Never let <code>.env</code> contents into a conversation.</strong> OpenCode denies reading <code>.env</code> by default <em>on purpose</em> — leave it that way. If the AI truly needs a value from <code>.env</code>, set it as an environment variable yourself or tell the AI <em>which</em> value in words, without pasting the secret.</li>
+<li><strong>Never commit secrets to Git.</strong> Chapter 6's <code>.gitignore</code> protects you; the reviewing chapter (7) has a pre-commit secret check.</li>
+<li><strong>Rotate, don't panic.</strong> If a key leaks (committed, pasted, shared), go to the provider's website and revoke/rotate it. That takes two minutes and neutralizes the leak.</li>
+<li><strong>Mind AI-supplied links.</strong> Free models occasionally hallucinate plausible-looking URLs. Never log in "via a link the AI gave you" — navigate to the provider's site yourself.</li>
+</ol>
+<h2 id="privacy-where-does-your-code-actually-go">Privacy: where does your code actually go?</h2>
+<p>With a cloud model, your prompts — meaning your code and file contents — travel to that provider's servers. Facts to internalize:</p>
+<ul>
+<li><strong>Local models (Ollama, LM Studio, llama.cpp) keep everything on your machine.</strong> Strongest option for sensitive material.</li>
+<li><strong>Free cloud tiers often train on your data.</strong> If the provider's free tier says it may use data to improve models, that text usually means exactly what it appears to mean.</li>
+<li><strong>Sessions may be shareable.</strong> Some OpenCode versions can publish a share-link of a session. If such a feature is present, treat it like publishing pages on the internet — a fine way to show off a demo project, a terrible way to "ask friends about" anything private.</li>
+<li>As a nurse-turned-author, our founder's rule is worth borrowing: <strong>treat patient, client, or customer details as radioactive in any AI context unless the tooling is explicitly designed and contracted for it.</strong> This book is about tools and learning; it is never a place to paste real case data.</li>
+</ul>
+<h2 id="your-first-signin-safety-checklist">Your first-signin safety checklist</h2>
+<p>Do these five minutes of tuning once, then relax:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Set <code>"*": "ask"</code> for <code>shell</code> (commands get prompts)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Add <code>"rm *": "deny"</code> to <code>shell</code> rules</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Decide on <code>"git push *"</code>: <code>deny</code> while you learn, <code>ask</code> later</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Leave <code>read</code> rules at default so <code>.env</code> stays denied</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Leave <code>external_directory</code> at <code>ask</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Check your model choice's privacy posture (Chapter 3)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Confirm keys live in <code>auth.json</code> or env vars, not project files</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Turn off auto-approvals (<code>--auto</code> unused) until Git is in your routine</li>
+</ul>
+<h2 id="a-gentle-word-about-what-safety-is-for">A gentle word about what safety is <em>for</em></h2>
+<p>Safety rails are not distrust of you. They exist because this is a <em>new way of working</em>: software now proposes changes to your disk, your terminal, and your network, and the human reviewing it is learning to review. Every prompt you approve in your first weeks is a tiny education in what agents do. By the time auto mode truly suits you, you will <em>know</em> why — because you will have read a hundred of those prompts. That earned confidence is the whole game.</p>
+<hr /></section><hr><section id="ch-5-05-writing-good-task-prompts"><h1>Chapter 5 — Writing Good Task Prompts</h1><p>Bad prompts are the single biggest cause of "the AI is useless" experiences — and the fix costs nothing. This chapter gives you a formula, worked examples, and the little OpenCode mechanics (<code>@</code>, images, Plan mode) that turn decent prompts into great ones.</p>
+<h2 id="the-four-part-prompt-formula">The four-part prompt formula</h2>
+<p>Every good task prompt contains four ingredients. You do not need perfect style; you need all four present:</p>
+<ol>
+<li><strong>Goal</strong> — what you want to be true when the work is done.</li>
+<li><strong>Context</strong> — where the work happens (files, folders, examples of similar things).</li>
+<li><strong>Constraints</strong> — boundaries: what <em>not</em> to touch, style rules, keep it simple.</li>
+<li><strong>Definition of done</strong> — how you will check the result (a page opens, a test passes, a file is created).</li>
+</ol>
+<p>A friendly way to remind yourself: <em>goal, where, guardrails, and how I'll know.</em></p>
+<h2 id="bad-and-good-side-by-side">Bad and good, side by side</h2>
+<p>The jump from bad to good is smaller than you think — it is just the four parts, said out loud:</p>
+<table>
+<thead>
+<tr>
+<th>Vague prompt</th>
+<th>Good prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Fix my website."</td>
+<td>"Goal: the <code>/contact</code> page's form should send submissions to a local text file and show a success message. Context: it lives in <code>site/contact.html</code> and <code>js/contact.js</code>. Constraints: don't change other pages; keep styling as-is. Done: submitting the form produces a line in <code>submissions.txt</code> and a visible success note."</td>
+</tr>
+<tr>
+<td>"Make the data cleaner."</td>
+<td>"Goal: remove duplicate rows in <code>data/patients.csv</code> where <code>ID</code> matches, keeping the earliest <code>VisitDate</code>. Context: it's a CSV with a header row; dates are <code>YYYY-MM-DD</code>. Constraints: don't reorder rows otherwise; warn me how many duplicates you removed. Done: the output file has a count of removed rows and opens without errors."</td>
+</tr>
+<tr>
+<td>"Add tests."</td>
+<td>"Goal: add tests for the <code>slugify()</code> function in <code>src/text.js</code>. Context: test pattern for this project is <code>tests/*.test.js</code>; see <code>tests/none-yet</code>. Constraints: use the project's existing test style; no new dependencies. Done: <code>npm test</code> passes and covers empty strings, uppercase, and repeated dashes."</td>
+</tr>
+<tr>
+<td>"Can it have a dark mode?"</td>
+<td>"Goal: add a dark/light toggle to the reader page. Context: colours live in <code>style.css</code>; the toggle button can sit in the top-left of <code>reader.html</code>. Constraints: store the choice in <code>localStorage</code>; don't add frameworks. Done: toggling survives a page refresh."</td>
+</tr>
+</tbody>
+</table>
+<p>Notice what the good column is <em>not</em>: jargon-heavy, clever, or long. It is just explicit about the four parts. Beginners routinely under-specify the <strong>definition of done</strong>, which is the part the AI also uses to <em>check itself</em> before handing you work.</p>
+<h2 id="work-across-the-table-from-your-junior-developer">Work across the table from your junior developer</h2>
+<p>Chapter 1's mental model pays off here. You would not say "make onboarding better" to a new hire and walk away. You would hand them a ticket. Write prompts like tickets:</p>
+<ul>
+<li><strong>One task per prompt.</strong> Sequential, small asks beat a single giant wish. Small tasks also fit small context windows (relevant for free models, see Chapter 8) and produce reviewable diffs (Chapter 7).</li>
+<li><strong>Point at concrete things.</strong> Use <code>@</code> while typing to reference real files (<code>@src/app.js</code>); OpenCode pulls the file into the AI's attention. Reference by-with example: "handle it like the other routes do in @packages/functions/src/notes.ts".</li>
+<li><strong>Invite questions.</strong> "Before you start, ask me anything unclear" is a magic sentence. It converts silent wrong guesses into a short conversation you can afford.</li>
+<li><strong>Give constraints you care about but wouldn't think to say</strong>: "plain JavaScript, no frameworks"; "don't reformat files I didn't mention"; "comments only where code isn't obvious"; "never edit files under <code>archive/</code>".</li>
+<li><strong>Let it propose, then choose.</strong> For anything design-flavoured, ask for three options with trade-offs before building any. Choosing between sketches is easier than undoing a building.</li>
+</ul>
+<h2 id="the-plan-build-drill">The Plan → Build drill</h2>
+<p>This rides on Chapter 1's loop but deserves its own drill, because it is <em>the</em> quality lever:</p>
+<ol>
+<li>Press <strong>Tab</strong> into <strong>Plan mode</strong>.</li>
+<li>Write the four-part prompt.</li>
+<li>Read the plan as if grading someone's work. Fix: missing steps, wrong files touched, scope creep, anything it "assumed" that you did not say.</li>
+<li>Iterate the plan with short replies ("step 2 should use the existing helper in <code>@utils/date.js</code>, not a new one").</li>
+<li>When the plan matches your intent, <strong>Tab</strong> back to Build mode and say: "Approved — go ahead with exactly this plan."</li>
+</ol>
+<p>Cost of all that: two minutes. Cost of not doing it: a bad half-hour of undoing. On free tiers this is also simply the cheapest way to spend tokens.</p>
+<h2 id="a-worked-example-start-to-finish">A worked example (start to finish)</h2>
+<p>Task: you want to build a <strong>soft-delete flow for notes</strong> — the same example shape OpenCode's own documentation demonstrates, and a very common real-world need.</p>
+<p><strong>In Plan mode:</strong></p>
+<blockquote>
+<p>Goal: when a user deletes a note, we flag it as deleted in the database instead of deleting it. Then add a "Recently deleted" screen where a note can be undeleted or permanently removed.
+Context: notes live in <code>src/notes/</code>; the database layer is <code>src/db.js</code>; see how the existing list view in <code>src/notes/list.js</code> is structured and match it.
+Constraints: no new dependencies; keep the UI style consistent; don't touch anything outside <code>src/notes/</code> and <code>src/db.js</code>.
+Done: deleting a note hides it from the main list, it appears under Recently deleted, undelete puts it back, permanent delete is possible but asks for confirmation.</p>
+</blockquote>
+<p>Iterate the plan if needed. Then, in Build mode: "Approved — implement this plan."</p>
+<p>After it builds: review (Chapter 7), run the app, and commit. A real feature, built by an AI, understood by you.</p>
+<h2 id="small-mechanic-chapter-things-opencode-gives-you-for-free-in-prompts">Small-mechanic chapter: things OpenCode gives you for free in prompts</h2>
+<table>
+<thead>
+<tr>
+<th>Mechanic</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@file</code> references</td>
+<td>Pull specific files into context ("see how <code>@notes.ts</code> handles auth")</td>
+</tr>
+<tr>
+<td>Drag-and-drop images</td>
+<td>Screenshots of the design you want matched; error popups for debugging</td>
+</tr>
+<tr>
+<td>Plan mode (Tab)</td>
+<td>Force a review-first workflow</td>
+</tr>
+<tr>
+<td><code>/undo</code>, <code>/redo</code></td>
+<td>Cheap iteration: change the prompt, not the mess</td>
+</tr>
+<tr>
+<td><code>/init</code> + edits to <code>AGENTS.md</code></td>
+<td>Put <em>standing</em> preferences in <code>AGENTS.md</code> ("in <code>@AGENTS.md</code>: always answer in plain English") so you stop repeating them</td>
+</tr>
+<tr>
+<td>Follow-up "why did you…?"</td>
+<td>The best review engine is the chat itself — make the AI explain its own changes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prompt-anti-patterns-to-retire">Prompt anti-patterns to retire</h2>
+<p>Retire these habits now, with love:</p>
+<table>
+<thead>
+<tr>
+<th>Anti-pattern</th>
+<th>Why it fails</th>
+<th>Replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Make it good/professional/modern"</td>
+<td>Untestable; guarantees generic output</td>
+<td>Concrete description of the visible result</td>
+</tr>
+<tr>
+<td>Ten tasks in one prompt</td>
+<td>First three get done, rest forgotten, context fills</td>
+<td>One ticket per prompt, sequenced</td>
+</tr>
+<tr>
+<td>"You're an expert, just do it"</td>
+<td>Confidence theatre; moves nothing</td>
+<td>Provide the context and done-definition</td>
+</tr>
+<tr>
+<td>No mention of files</td>
+<td>AI wanders the project guessing</td>
+<td><code>@</code> references to real files</td>
+</tr>
+<tr>
+<td>"Rewrite everything from scratch"</td>
+<td>Throws away unreviewed value</td>
+<td>Ask for a targeted change or an new module</td>
+</tr>
+<tr>
+<td>Silence when unhappy</td>
+<td>Rolls with the bad version</td>
+<td>Say exactly what's wrong; re-prompt or <code>/undo</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="checklist-before-you-press-enter">Checklist: before you press Enter</h2>
+<p>Glance down this list when you finish typing any prompt:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The <strong>goal</strong> is a result, not a mood</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Context</strong>: real files are referenced (with <code>@</code> where possible)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Constraints</strong> that matter are stated (scope, style, no-new-deps)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Definition of done</strong> is checkable by <em>you</em>, not just the AI</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> It is <strong>one task</strong> (or an explicitly-sequenced plan)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> In Plan mode, if the change is bigger than a tweak</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Long-term preferences live in <code>AGENTS.md</code>, not in every prompt</li>
+</ul>
+<p>That's the craft. Next chapter: the safety net beneath all of this.</p>
+<hr /></section><hr><section id="ch-6-06-git-basics"><h1>Chapter 6 — Git Basics (Your Safety Net)</h1><p>Git is the one tool in this book that has nothing directly to do with AI — and is the reason AI coding is <em>safe</em> for beginners. Git records snapshots of your project, called <strong>commits</strong>, so that any mistake — yours or the AI's — can be reversed with one command. Everything else in this book quietly assumes you know this chapter.</p>
+<h2 id="the-idea-in-one-paragraph">The idea in one paragraph</h2>
+<p>Imagine you save a copy of a document before every edit, forever, into a numbered archive that takes no space and never gets mislabelled. That is Git. A <strong>repository</strong> ("repo") is a project folder that Git archives. A <strong>commit</strong> is one archived snapshot with a label you wrote. A <strong>diff</strong> is the difference between two snapshots. That vocabulary plus six commands is 95% of what beginners need.</p>
+<h2 id="setup-once-per-computer">Setup once, per computer</h2>
+<p>Tell Git who you are (this goes into the archive labels of commits you make):</p>
+<pre><code class="language-bash">git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
+</code></pre>
+<p>The email does not need to be real for local work, but using your real one matters later if you publish to GitHub, since GitHub links commits to accounts by email. Nothing in this book requires an online service; Git is fully local.</p>
+<h2 id="the-six-commands-that-matter">The six commands that matter</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+<th>When you type it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git init</code></td>
+<td>Turn this folder into a repo</td>
+<td>Once, at the start of a project</td>
+</tr>
+<tr>
+<td><code>git status</code></td>
+<td>Show what changed and what's staged</td>
+<td>Constantly; your dashboard</td>
+</tr>
+<tr>
+<td><code>git add -A</code></td>
+<td>Stage all current changes for the next snapshot</td>
+<td>When you like what you see</td>
+</tr>
+<tr>
+<td><code>git commit -m "…"</code></td>
+<td>Save a labelled snapshot</td>
+<td>Every time you reach a good state</td>
+</tr>
+<tr>
+<td><code>git log --oneline</code></td>
+<td>List past snapshots short</td>
+<td>When you want an overview</td>
+</tr>
+<tr>
+<td><code>git diff</code></td>
+<td>Show unstaged changes line by line</td>
+<td>Before staging — your review screen</td>
+</tr>
+</tbody>
+</table>
+<p>And for emergencies (learn these the day something breaks):</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git restore &lt;file&gt;</code></td>
+<td>Discard unsaved changes to a file — back to last commit</td>
+</tr>
+<tr>
+<td><code>git restore --staged &lt;file&gt;</code></td>
+<td>Unstage a file you add-ed by mistake</td>
+</tr>
+<tr>
+<td><code>git checkout &lt;hash&gt;</code></td>
+<td>Travel back in time to look at any old snapshot, read-only</td>
+</tr>
+<tr>
+<td><code>git branch &lt;name&gt;</code> / <code>git checkout -b &lt;name&gt;</code></td>
+<td>Create a parallel history (see below)</td>
+</tr>
+<tr>
+<td><code>git merge &lt;name&gt;</code></td>
+<td>Blend a branch's work back into the main line</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing here touches the internet. This book keeps you <strong>local-first</strong>: GitHub is a good future step, but you do not need accounts or remotes to be protected.</p>
+<h2 id="gitignore-files-git-should-never-touch"><code>.gitignore</code>: files Git should never touch</h2>
+<p>Some files should never enter history: caches, build output, and above all <strong>secrets</strong>. Put a <code>.gitignore</code> file in your project root on day one:</p>
+<pre><code class="language-gitignore"># Never commit these
+.env
+.env.*
+*.pem
+*secret*
+auth.json
+
+# Usually noise
+node_modules/
+__pycache__/
+.DS_Store
+</code></pre>
+<p>Check that it works:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git status</code> shows no <code>.env</code> (or similar) as untracked after you add <code>.gitignore</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>node_modules/</code> (if you use it) is invisible to <code>git status</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The <code>.gitignore</code> itself <strong>is</strong> tracked (it's a project file, and a great one)</li>
+</ul>
+<p>Note the difference in defaults you already carry from Chapter 4: OpenCode refuses to read <code>.env</code> by the same logic — secrets stay out of conversations <em>and</em> out of history.</p>
+<h2 id="the-recommended-ai-working-rhythm">The recommended AI-working rhythm</h2>
+<p>This is the chapter's gift to your future self: a rhythm that makes AI work trivially reversible.</p>
+<ol>
+<li><strong>Start clean.</strong> Before asking the AI for anything, <code>git status</code> should say "nothing to commit." If not, commit or discard the old work first — never mix old and new in one review.</li>
+<li><strong>Commit before you prompt.</strong> A commit right before each AI task is a restore point keyed by task (write it in the message: "before dark mode feature").</li>
+<li><strong>Let the AI work.</strong> Approve, watch, keep Git untouched.</li>
+<li><strong>Review the diff</strong> (<code>git diff</code>, Chapter 7 teaches the routine).</li>
+<li><strong>Commit the result — or roll back.</strong> Good? <code>git add -A &amp;&amp; git commit -m "add dark mode toggle"</code>. Bad? <code>git restore .</code> and nothing of value was lost — your last commit still stands.</li>
+</ol>
+<p>Optionally level up with branches: <code>git checkout -b dark-mode</code> before a bigger feature, explore there, <code>git merge dark-mode</code> when satisfied. A branch is a free sandbox that protects the main line; it pairs beautifully with AI experiments.</p>
+<h2 id="writing-commit-messages-that-help-including-with-the-ai">Writing commit messages that help (including with the AI)</h2>
+<p>A commit message is a label for your future self. Patterns that cost seconds and pay for weeks:</p>
+<ul>
+<li><strong>Present tense, imperative-ish, specific</strong>: <code>add slugify helper with tests</code>, <code>fix crash on empty photo name</code>, <strong>not</strong> <code>fixes</code> / <code>stuff</code> / <code>asdf</code>.</li>
+<li><strong>Why beats what</strong>: <code>cap crops at 1200px (eBay requires min 800)</code> is gold six months later; <code>resize images</code> is decorations.</li>
+<li><strong>One idea per commit</strong>: if the message needs the word "and" three times, make two commits.</li>
+<li><strong>Never commit secrets or junk files</strong>: check <code>git diff --staged</code> before any commit if you are unsure what you staged.</li>
+</ul>
+<h2 id="what-to-commit-including-agentsmd">What to commit — including <code>AGENTS.md</code></h2>
+<p>Short answer: everything that defines the project. Specifically relevant to this book:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Commit it?</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source code (<code>src/</code>, etc.)</td>
+<td>Yes</td>
+<td>Obviously</td>
+</tr>
+<tr>
+<td><code>AGENTS.md</code></td>
+<td><strong>Yes</strong></td>
+<td>Your AI briefing travels with the project; per OpenCode's own advice</td>
+</tr>
+<tr>
+<td>README, config, test data (fake)</td>
+<td>Yes</td>
+<td>Part of the project</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Yes</td>
+<td>Protects the future</td>
+</tr>
+<tr>
+<td><code>.env</code>, keys, <code>auth.json</code></td>
+<td><strong>Never</strong></td>
+<td>Secrets</td>
+</tr>
+<tr>
+<td><code>node_modules/</code>, build output</td>
+<td>No</td>
+<td>Reproducible from source; huge</td>
+</tr>
+<tr>
+<td>Large media you could regenerate</td>
+<td>Usually not</td>
+<td>Keeps repo snappy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="your-rhythm-as-a-checklist">Your rhythm as a checklist</h2>
+<p>Print this. It is the operational spine of the whole book:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Repo initialized (<code>git init</code>), user configured</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>.gitignore</code> in place, secrets excluded</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Working tree clean before each AI task</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Commit before prompting (snapshot A)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git diff</code> reviewed after the AI's work</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Commit after acceptance (snapshot B) <strong>or</strong> <code>git restore .</code> to roll back</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Messages: specific, one idea each, no secrets</li>
+</ul>
+<p>With this rhythm, the scariest sentence in AI coding — <em>"I don't know what it changed"</em> — becomes a question with a nine-character answer: <code>git diff</code>. On to reviewing, proper.</p>
+<hr /></section><hr><section id="ch-7-07-reviewing-ai-changes"><h1>Chapter 7 — Reviewing AI Changes</h1><p>If prompts are how you direct the AI, review is how you keep your project <em>yours</em>. Skipping review is how people end up with folders they no longer understand. This chapter gives you a light, repeatable review routine — light enough that you'll actually do it every time.</p>
+<h2 id="the-mindset">The mindset</h2>
+<p>Treat every AI change like a <strong>pull request from a new coworker</strong>: competent, fast, occasionally wrong about details, always acting in good faith. You don't read it looking for evil; you read it looking for <strong>misunderstandings</strong>. Then — and this is the part people forget — you are the one signing the work. "The AI wrote it" is not a defence anywhere in life.</p>
+<h2 id="step-1-see-what-changed-git-diff">Step 1: See what changed (<code>git diff</code>)</h2>
+<p>The review always starts in the same place:</p>
+<pre><code class="language-bash">git diff          # unsaved changes, line by line
+git diff --stat   # just the file list and sizes first
+</code></pre>
+<p>Reading order that works:</p>
+<ol>
+<li><code>--stat</code> first — how many files? Does the <em>scope</em> match the task? (You asked for a dark-mode toggle and it touched 14 files? Ask why before reading anything.)</li>
+<li>Then read the diff of each changed file top to bottom. Lines starting with <code>+</code> were added, <code>-</code> removed.</li>
+<li>Anything confusing <em>stays</em> confusing until you've asked. "Explain @src/app.js changes from this diff" in OpenCode is legitimate review, not cheating — make the AI teach you its own change.</li>
+</ol>
+<p><strong>Scope-of-work check.</strong> The most common AI mistake is not bad code; it is <em>more code than you asked for</em>: extra helpers, reformatting of untouched files, "improvements" beside the point. If you see it, say so: "revert everything except the <code>dark-mode</code> toggle changes." Scope discipline is review.</p>
+<h2 id="step-2-run-the-thing">Step 2: Run the thing</h2>
+<p>Code review that never runs the code is just reading fiction. The checklist:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The program/app runs and does the new thing</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The old things still work (the new toggle didn't break list view)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The <em>done-definition</em> from your prompt is met — you wrote one, it's checkable</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Error paths: give it bad input, slow network, empty file — does it grumble politely instead of crashing?</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> If tests exist: they pass (and if none exist and the change is logic, ask the AI to add some — "no new dependencies")</li>
+</ul>
+<h2 id="step-3-read-it-like-an-editor">Step 3: Read it like an editor</h2>
+<p>You are not hunting for perfect style; you are triaging risk. Look for these <strong>frequent, findable problems</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Red flag</th>
+<th>Looks like</th>
+<th>Triage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope creep</strong></td>
+<td>Files touched that the task didn't involve</td>
+<td>Ask to revert to task scope</td>
+</tr>
+<tr>
+<td><strong>Hard-coded secrets</strong></td>
+<td>Something that looks like a key/token in the diff</td>
+<td>Remove &amp; rotate — non-negotiable</td>
+</tr>
+<tr>
+<td><strong>Lying logs</strong></td>
+<td><code>// this function is unused</code> on a function now used everywhere</td>
+<td>Ask the AI to recheck comments; stale comments are a classic</td>
+</tr>
+<tr>
+<td><strong>Missing error handling</strong></td>
+<td>Code assuming files exist, networks answer, users don't do weird things</td>
+<td>Ask: "handle the empty case / offline case / invalid input"</td>
+</tr>
+<tr>
+<td><strong>Over-engineering</strong></td>
+<td>A config system, three abstractions and a factory for one feature</td>
+<td>"Simplify to the smallest version that meets the done-definition"</td>
+</tr>
+<tr>
+<td><strong>Magic behaviour</strong></td>
+<td>Works but you can't explain why</td>
+<td>Refuse it. Ask the AI to explain plainly until you can</td>
+</tr>
+<tr>
+<td><strong>Copy-paste clones</strong></td>
+<td>The same function appears in two files</td>
+<td>"Deduplicate — keep one, referenced from both"</td>
+</tr>
+<tr>
+<td><strong>Suspicious URLs</strong></td>
+<td>Looks-plausible links/pages created wholesale</td>
+<td>Never trust AI-made links without checking</td>
+</tr>
+</tbody>
+</table>
+<p>You will not catch everything at first. You will get dramatically better in a month, mostly through the review <em>prompts</em> in the next section.</p>
+<h2 id="step-4-the-review-prompts-your-unfair-advantage">Step 4: The review prompts (your unfair advantage)</h2>
+<p>OpenCode can help you review — and free models are typically <em>better at critical reading than at perfect generation</em>. Use it:</p>
+<ul>
+<li>"Explain the changes from this last task as if I'm new: what, why, and what could go wrong."</li>
+<li>"What is the riskiest part of the change you just made? What would you test first?"</li>
+<li>"Review your own diff like a stern senior dev. List anything you'd be embarrassed about." (Great on good models, comedy on small ones — but both are useful.)</li>
+<li>"Write three quick test cases for <code>slugify()</code> — normal, empty, weird input." Then make it implement and run them.</li>
+</ul>
+<p>Also remember <code>/undo</code> and <code>/redo</code>: OpenCode keeps a history of change-sets, so iterating ("that's 90% right, but the toggle should sit top-left") is cheap. Undo does not replace Git — it replaces <em>re-prompting from scratch</em>.</p>
+<h2 id="step-5-the-accept-ritual">Step 5: The accept ritual</h2>
+<p>When satisfied, make the acceptance formal — this doubles as the end of the loop:</p>
+<pre><code class="language-bash">git add -A
+git commit -m &quot;add dark-mode toggle with saved preference&quot;
+</code></pre>
+<p>If instead you are <em>not</em> satisfied and the AI's second attempt gets worse rather than better:</p>
+<pre><code class="language-bash">git restore .     # back to your pre-task snapshot
+</code></pre>
+<p>…and then change the <em>prompt</em>, not the code. Two failed generations is a prompt problem; a fresh-scope task or a Plan-mode pass will usually do better than a third wild attempt.</p>
+<h2 id="a-note-on-formatters-and-standards">A note on formatters and standards</h2>
+<p>If your project uses a formatter (e.g. Prettier, Black), run it after AI changes and review <em>that</em> diff separately. Judging style is a waste of your review attention — the machine can settle style; you settle meaning. OpenCode can also be configured to run formatters automatically (its <code>formatter</code> settings), which is worth doing once your routine is stable.</p>
+<h2 id="review-on-a-budget-free-tier-friendly">Review on a budget (free-tier friendly)</h2>
+<p>Reviewing is one of the <em>cheapest</em> things a free model does well, since it is usually short-input, short-output: diffs, explanations, test suggestions. A frugal pattern that works surprisingly well:</p>
+<ol>
+<li>Big, careful <strong>Plan</strong> with your best/strongest allowed model (rare requests anyway).</li>
+<li><strong>Build</strong> with whatever model your tier handles comfortably.</li>
+<li><strong>Review</strong> — cheap, free-friendly — with the same or even a different capable model.</li>
+<li><strong>Commit</strong> locally. No tokens required for steps 3's Git part at all.</li>
+</ol>
+<h2 id="the-review-checklist-shrink-onto-a-card">The review checklist (shrink onto a card)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git diff --stat</code> — scope matches the task</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Full diff read (or read with AI narration where unclear)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Ran the thing; done-definition met; old features intact</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> No secrets or weird URLs entered the diff</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Self-review prompt: "riskiest part? would you be embarrassed anywhere?"</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Formatter run, if one exists</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Accepted → commit. Not accepted after two tries → <code>git restore .</code>, new prompt</li>
+</ul>
+<p>Review might feel slow as you read this. In practice it is minutes, and it is the exact habit that keeps the AI a tool rather than a hazard. Now, let's look honestly at what free tiers give you — and what they don't.</p>
+<hr /></section><hr><section id="ch-8-08-limits-of-free-tiers"><h1>Chapter 8 — Limits of Free Tiers (and Working Within Them)</h1><p>Free is a real option, not a broken version of paid. But free has <em>edges</em>, and beginners exhaust good free setups for lack of knowing the edges' shapes. This chapter maps the limits so you can plan around them instead of being surprised by them.</p>
+<h2 id="the-rules-of-the-free-game">The rules of the free game</h2>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Where you feel it</th>
+<th>What it actually means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rate limits / quotas</strong></td>
+<td>"Too many requests" / 429 errors, slowed-down replies</td>
+<td>A count of requests or tokens per day/month. The commonest free-tier limit.</td>
+</tr>
+<tr>
+<td><strong>Reduced served quality</strong></td>
+<td>Free tier may route you to a smaller/older model at peak</td>
+<td>Same model name can quietly vary in power</td>
+</tr>
+<tr>
+<td><strong>Context window constraints</strong></td>
+<td>The AI "forgets" files, loses the thread on long chats</td>
+<td>Everything (conversation + referenced files) must fit in the window</td>
+</tr>
+<tr>
+<td><strong>Feature gating</strong></td>
+<td>Some models or settings simply missing from your plan</td>
+<td>The provider reserves high tiers; you get the generous floor</td>
+</tr>
+<tr>
+<td><strong>Throttled speed</strong></td>
+<td>Great at 9 AM, slow at 6 PM</td>
+<td>Shared pools get crowded</td>
+</tr>
+<tr>
+<td><strong>Training on your data</strong></td>
+<td>Privacy posture on free tiers (see Chapter 4)</td>
+<td>Free often = your texts may train them</td>
+</tr>
+<tr>
+<td><strong>No uptime guarantee</strong></td>
+<td>Occasional errors on heavy days</td>
+<td>Free tiers fail hardest exactly when everyone else is there too</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The most important habit in this chapter: verify today's numbers on the provider's own page.</strong> Limits change monthly in this industry. This book teaches shapes and strategies; websites carry today's truth.</p>
+<h2 id="recognizing-the-symptoms-early">Recognizing the symptoms early</h2>
+<p>Free-tier exhaustion announces itself politely before it ruins your day:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely limit</th>
+<th>First response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>429 / "rate limit" errors</td>
+<td>Quota exhausted</td>
+<td>Wait for reset; switch model/provider; finish task later</td>
+</tr>
+<tr>
+<td>Replies get <em>shorter</em> or trail off</td>
+<td>Output caps or mid-session throttling</td>
+<td>Split the task; finish in a follow-up prompt</td>
+</tr>
+<tr>
+<td>"I don't have the file you mentioned"</td>
+<td>Context window filled</td>
+<td>Reference fewer files; start a fresh session for new tasks</td>
+</tr>
+<tr>
+<td>Increasingly generic answers</td>
+<td>Small model substituted / context bloat</td>
+<td>Restart session; compact the ask</td>
+</tr>
+<tr>
+<td>Long errors mid-day</td>
+<td>Provider under load</td>
+<td>Local model (if set up) or revisit at off-peak</td>
+</tr>
+</tbody>
+</table>
+<p>None of these mean you did something wrong. They are the simplest, bleakest weather report for free-tier users, and now you read it fluently.</p>
+<h2 id="strategy-1-match-model-to-task-size">Strategy 1: Match model to task size</h2>
+<p>The single most effective habit: <strong>spend scarce powerful-model requests where they pay, and not a token more.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Spend pattern</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Writing a Plan for a multi-file feature</td>
+<td>Strong model, careful prompt</td>
+<td>The plan steers everything downstream</td>
+</tr>
+<tr>
+<td>Executing the approved plan</td>
+<td>Fast/cheap model</td>
+<td>Steps are now mechanical</td>
+</tr>
+<tr>
+<td>Reviewing a small diff</td>
+<td>Any model</td>
+<td>Short in, short out</td>
+</tr>
+<tr>
+<td>Explaining unfamiliar code</td>
+<td>Any model</td>
+<td>Chat, not creation</td>
+</tr>
+<tr>
+<td>Giant refactor across 15 files</td>
+<td><strong>None, or local big-model</strong></td>
+<td>Small context models will mangle it</td>
+</tr>
+<tr>
+<td>Chatting through concepts</td>
+<td>Free/cheap</td>
+<td>Zero-risk usage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="strategy-2-make-agentsmd-do-the-remembering">Strategy 2: Make AGENTS.md do the remembering</h2>
+<p>Every token of project context you state in a prompt is a token re-spent forever. Instead, put stable facts in <code>AGENTS.md</code> (see Chapter 2) — structure, conventions, commands — and re-run <code>/init</code> when the project shape changes. Cheap models do <em>much</em> better when the briefing is in the file rather than the chat, and you stop paying to re-describe your project daily.</p>
+<h2 id="strategy-3-plan-offline-build-with-a-lean-budget">Strategy 3: Plan offline; build with a lean budget</h2>
+<p>A pattern that turns an exhausted daily quota into a productive day:</p>
+<ol>
+<li><strong>Morning (fresh quota):</strong> Plan mode with your best model; revise until perfect; save the plan on paper (literally — copy it into your notes or a <code>PLANS.md</code> file).</li>
+<li><strong>Midday (quota running low):</strong> Build mode executes the plan; approve prompts; make commits along the way (Chapter 6).</li>
+<li><strong>Quota gone:</strong> human review of diffs (Chapters 6–7), local Ollama run for questions, or simply stop where the next step is mechanical for tomorrow-you with a fresh quota.</li>
+</ol>
+<p>Written plans are portable between models <em>and</em> days — one of the quiet superpowers of Plan-first work.</p>
+<h2 id="strategy-4-keep-a-rotation">Strategy 4: Keep a rotation</h2>
+<p>Because <code>/models</code> switching costs nothing, experienced free-tier users keep two or three paths warm (Chapter 3's menu):</p>
+<ul>
+<li>Primary cloud free tier (e.g. Copilot free plan or a fast open-weights host like Groq/Cerebras)</li>
+<li>Local Ollama model for privacy, off-grid work, and when all quotas blink</li>
+<li>OpenRouter <code>:free</code> models as a wildcard sampler</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Rotation move</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary quota hit</td>
+<td>Switch to secondary cloud for the rest of the task</td>
+</tr>
+<tr>
+<td>Privacy-sensitive content</td>
+<td>Local model, full stop</td>
+</tr>
+<tr>
+<td>Cloud simply errors today</td>
+<td>Local until it clears; or plan-with-paper (Strategy 3)</td>
+</tr>
+<tr>
+<td>Need a big-context reasoning pass</td>
+<td>Whichever path currently offers the biggest window</td>
+</tr>
+</tbody>
+</table>
+<h2 id="strategy-5-know-what-free-models-are-actually-bad-at">Strategy 5: Know what free models are actually bad at</h2>
+<p>Honest limits of small/free models, so you stop blaming yourself for them:</p>
+<ul>
+<li><strong>Long, coherent multi-file refactors.</strong> They lose the plot; scope decisions wobble. Keep refactors small or make them yourself with AI as navigator.</li>
+<li><strong>Subtle security reasoning.</strong> They can <em>name</em> common vulnerabilities yet still write one. Ask a stronger model (or a second model) to security-review anything that touches auth, files, or user input.</li>
+<li><strong>Ambiguity.</strong> They guess rather than ask. Your four-part prompts (Chapter 5) and "ask me anything unclear" fix most of this.</li>
+<li><strong>Consistent style across a project.</strong> Expect drift; let formatters (Chapter 7) pick up the slack; correct slowly creeping architecture in review.</li>
+<li><strong>Endless patience inside one session.</strong> Context fills; sessions get dumber at the end. Start fresh sessions for new tasks — it is not a memory problem you can fix by trying harder.</li>
+</ul>
+<h2 id="when-free-is-genuinely-enough">When free is genuinely enough</h2>
+<p>A grounding table, because most beginners over-fear this question:</p>
+<table>
+<thead>
+<tr>
+<th>Project type</th>
+<th>Free-tier verdict</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Learning, practice, toy apps</td>
+<td>Enormously enough</td>
+<td>This is free tiers' home turf</td>
+</tr>
+<tr>
+<td>A personal website/blog</td>
+<td>Enough with patience</td>
+<td>Mostly small tasks, reviewable diffs</td>
+</tr>
+<tr>
+<td>Small business tools (checklists, converters, trackers)</td>
+<td>Enough</td>
+<td>Keep data local or private; review security-sensitive parts</td>
+</tr>
+<tr>
+<td>Automation scripts for you</td>
+<td>Enough</td>
+<td>Test with fake data first</td>
+</tr>
+<tr>
+<td>Serious app with real user data</td>
+<td>Possible, not first choice</td>
+<td>Paid models/local help; security review matters</td>
+</tr>
+<tr>
+<td>Anything with other people's personal data</td>
+<td>Caution first</td>
+<td>Privacy rules beat savings; local models for dosage— see Chapter 4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-free-tier-triage-checklist">The free-tier triage checklist</h2>
+<p>Keep for days when things feel slow or sticky:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Which limit am I actually hitting (rate limit? context? quality floor?)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Have I restarted the session for a fresh context?</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Is today's task actually plan-shaped → save a plan, build leaner</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Has <code>AGENTS.md</code> been re-run at <code>/init</code> since the last structural change?</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Should this task size go to the local model instead?</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Checked the provider's <em>current</em> limits page within the last month?</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Am I mid-rotation? (<code>/models</code> is one command — use it)</li>
+</ul>
+<p>Free tiers are the reason this book exists: real coding help at real zero dollars. Treat them like a shared community garden — plan your plots, take turns, and it will feed you well.</p>
+<hr /></section><hr><section id="ch-9-09-troubleshooting"><h1>Chapter 9 — Troubleshooting</h1><p>Everything breaks sometimes — terminals, keys, models, permissions — and the fix is almost always in the top ten possibilities. This chapter is a giant symptom → cause → fix table plus a few "get unstuck manually" walkthroughs. Keep it open when something misbehaves; skim it on a good day so it's familiar on a bad one.</p>
+<h2 id="the-universal-debugging-drills">The universal debugging drills</h2>
+<p>Before the tables: three habits that solve half of all problems before you look anything up.</p>
+<ol>
+<li><strong>Reproduce it exactly.</strong> Same command, same folder, same order. Flaky problems are diagnosis-eaters; a stable reproduction is half the diagnosis.</li>
+<li><strong>Change one thing at a time.</strong> New terminal? Or new model? Not both. One variable, then test.</li>
+<li><strong>Read the actual error.</strong> Out loud, like it matters. Most are surprisingly plain: <code>command not found</code>, <code>401</code>, <code>permission denied</code>. Match them below.</li>
+</ol>
+<h2 id="part-a-opencode-itself">Part A: OpenCode itself</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opencode: command not found</code></td>
+<td>Shell PATH doesn't include install dir, or stale shell</td>
+<td>Open a <strong>fresh</strong> terminal; if persists, find the install dir (<code>npm config get prefix</code> for npm) and add its <code>bin</code> to PATH (Ch. 2)</td>
+</tr>
+<tr>
+<td>TUI renders scrambled / colours wrong</td>
+<td>Weak terminal emulator</td>
+<td>Switch to Ghostty, WezTerm, Kitty, Alacritty (or WSL on Windows)</td>
+</tr>
+<tr>
+<td>Screen garbles after resizing</td>
+<td>Terminal resize event missed</td>
+<td>Press <strong>Ctrl+L</strong>, or restart the TUI</td>
+</tr>
+<tr>
+<td>Version numbers unchanged after update</td>
+<td>Old install copy shadowing a new one</td>
+<td><code>which opencode</code> (or <code>where</code> on Windows) — confirm which one runs; re-run installer; open fresh terminal</td>
+</tr>
+<tr>
+<td>Freezes / keys dead</td>
+<td>Rare TUI/terminal hiccup</td>
+<td><strong>Ctrl+C</strong> twice to exit cleanly; relaunch. Losing nothing but session view</td>
+</tr>
+<tr>
+<td>Everything is slow or erroring at once</td>
+<td>Provider load/outage today</td>
+<td>Try a second model/provider (<code>/models</code>); check the provider's status page</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-b-authentication-and-keys">Part B: Authentication and keys</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>401 Unauthorized</code> / <code>invalid API key</code></td>
+<td>Key wrong, revoked, or pasted with a typo</td>
+<td>Re-run <code>/connect</code> for that provider; paste fresh key; restart OpenCode</td>
+</tr>
+<tr>
+<td><code>/models</code> shows nothing usable</td>
+<td>No provider configured yet</td>
+<td>Complete <code>/connect</code> first (Recipe in Ch. 3)</td>
+</tr>
+<tr>
+<td>"Model requires a higher plan" (Copilot)</td>
+<td>That model is tier-gated</td>
+<td>Pick another model; free plans don't carry top models</td>
+</tr>
+<tr>
+<td>Key leaked (committed/pasted anywhere)</td>
+<td>Rotation needed</td>
+<td>Revoke at the provider's website → re-<code>/connect</code> → clean the file/commit (Ch. 4)</td>
+</tr>
+<tr>
+<td>Auth resets every launch</td>
+<td>Permissions problem on <code>~/.local/share/opencode/auth.json</code></td>
+<td>Check file exists &amp; is readable by you; re-connect once</td>
+</tr>
+</tbody>
+</table>
+<p>Do remember where keys live — <code>~/.local/share/opencode/auth.json</code> on Linux/macOS/WSL — and that "delete the file" is <em>not</em> the fix for a leak. Revoke-rotate-reconnect is the fix.</p>
+<h2 id="part-c-models-and-providers">Part C: Models and providers</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>429</code> / rate-limit errors</td>
+<td>Free quota for the hour/day</td>
+<td>Wait (quota windows reset); switch model/provider; plan offline (Ch. 8)</td>
+</tr>
+<tr>
+<td>Tool calls fail or the AI "forgets" instructions mid-task</td>
+<td>Local model with small context</td>
+<td>Raise Ollama's <code>num_ctx</code> (16k–32k to start); confirm the model supports tool calls; prefer coder models</td>
+</tr>
+<tr>
+<td>Weird refusal-y/beepy answers from a big cloud</td>
+<td>Wrong provider endpoint or free-tier route swapped to a small model</td>
+<td><code>/models</code>, pick explicitly; retry; nothing at all is ever your fault here</td>
+</tr>
+<tr>
+<td>Extremely slow responses</td>
+<td>Server load, or a very big model on weak local hardware</td>
+<td>Off-peak retry; or check <code>ollama ps</code> — is it CPU-thrashing?</td>
+</tr>
+<tr>
+<td>Nonsense answers on a local model</td>
+<td>Corrupted/partial download, wrong model</td>
+<td><code>ollama pull &lt;model&gt;</code> again; check RAM fit for the model size</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-d-files-edits-and-permission-prompts">Part D: Files, edits, and permission prompts</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI won't read a file</td>
+<td><code>.env</code> read is denied by default (by design)</td>
+<td>Env vars or manual value; true need = explicit override <em>with a reason</em> (Ch. 4)</td>
+</tr>
+<tr>
+<td>"Permission denied" prompts flood in</td>
+<td><code>"*": "ask"</code> posture</td>
+<td>That's fine; approve via <strong>always</strong> for safe categories (git status, grep) once you trust them</td>
+</tr>
+<tr>
+<td>AI edits files outside the project</td>
+<td><code>external_directory</code> allows it</td>
+<td>Set explicit path rules; default is <code>ask</code> — keep it</td>
+</tr>
+<tr>
+<td>AI repeats the same failing action</td>
+<td><code>doom_loop</code> should ask by default</td>
+<td>Approve investigation or reject; often the underlying task is impossible as stated — re-prompt</td>
+</tr>
+<tr>
+<td>AI can't run a specific command</td>
+<td>Your <code>permission.shell</code> rules deny it</td>
+<td>Add a precise allow rule (e.g. <code>"pytest *": "allow"</code>), deny for <code>rm *</code> stays</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-e-project-level-oddities">Part E: Project-level oddities</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every answer misses the project's structure</td>
+<td>Stale or missing <code>AGENTS.md</code></td>
+<td>Re-run <code>/init</code> after big structural changes; commit <code>AGENTS.md</code> (Ch. 2, 6)</td>
+</tr>
+<tr>
+<td>AI says the file doesn't exist (it does)</td>
+<td>Wrong path or context window lost it</td>
+<td>Use <code>@</code> to hard-reference it; restart session for a fresh context</td>
+</tr>
+<tr>
+<td>Changes lost after closing OpenCode</td>
+<td><code>/undo</code>'d but never committed, or plain not-saved</td>
+<td>Commit early, commit often (Ch. 6) — OpenCode history is not Git history</td>
+</tr>
+<tr>
+<td>Everything looks fine but tests fail silently</td>
+<td>Test command differing from project convention (<code>/init</code> writes the right one)</td>
+<td>Use the commands in <code>AGENTS.md</code> or ask the AI which test command your project expects</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-f-git-rescue-recipes">Part F: Git "rescue" recipes</h2>
+<p>Common beginner Git scares, resolved:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>What is true</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"I made a mess and want yesterday's version"</td>
+<td>Last good commit exists</td>
+<td><code>git restore .</code> (unsaved changes) or <code>git checkout &lt;hash&gt;</code> to look back (then branch or copy)</td>
+</tr>
+<tr>
+<td>"I staged a secret!"</td>
+<td>Staging is safe; commit is the door</td>
+<td><code>git restore --staged &lt;file&gt;</code> to unstage; <strong>if already committed</strong>, remove the secret, rotate it at the provider, then commit the removal</td>
+</tr>
+<tr>
+<td>"I committed something wrong"</td>
+<td>Commits are printable history</td>
+<td>Fix the file, commit again; for <em>fresh local</em> mistakes, <code>git commit --amend</code> is OK. Never rewrite pushed history</td>
+</tr>
+<tr>
+<td>"My branch is a disaster"</td>
+<td>Branchies are free</td>
+<td><code>git checkout main</code> (or your main branch), start fresh; delete the ruin with <code>git branch -D &lt;name&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="when-to-ask-for-help">When to ask for help</h2>
+<p>You are entitled to ask for help, and knowing where helps twice:</p>
+<ul>
+<li><strong>OpenCode's own docs</strong> — opencode.ai/docs — always current, and this book deliberately sticks to their shape.</li>
+<li><strong>The TUI's <code>/help</code></strong> — the fastest answer for keys and commands.</li>
+<li><strong>OpenCode's Discord/GitHub</strong> — real humans, and bug reports are welcome there. Search first; your exact error text is often already answered.</li>
+<li><strong>Error messages, verbatim</strong>, always travel with you to any of these.</li>
+</ul>
+<h2 id="the-triage-card-when-panic-arrives">The triage card (when panic arrives)</h2>
+<ol>
+<li>Fresh terminal. Fresh session.</li>
+<li><code>opencode --version</code>; confirm which binary.</li>
+<li>One-variable change; retest.</li>
+<li>Read the error verbatim; match it to the tables above.</li>
+<li><code>/models</code> swap to a fallback path.</li>
+<li><code>git status</code>/<code>git diff</code> to confirm nothing precious is lost.</li>
+<li>Still stuck: docs → Discord → walk away for ten minutes (seriously, this fixes human-scale bugs).</li>
+</ol>
+<p>Ninety percent of beginner "it's broken" moments die by step 4.</p>
+<hr /></section><hr><section id="ch-10-10-appendix-checklists"><h1>Chapter 10 — Appendix: The Checklists and Glossary</h1><p>This is the shortest chapter and the one you'll use most. It compresses the whole book into routines you can run without re-reading anything. Print these, or keep this chapter open as a tab.</p>
+<h2 id="a-first-session-setup-once-per-computer">A. First-session setup (once per computer)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Good terminal chosen (WSL on Windows; Ghostty/Kitty/WezTerm elsewhere)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> OpenCode installed and <code>opencode --version</code> answers</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Git installed and identity configured (<code>git config --global user.name/user.email</code>)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> A provider connected via <code>/connect</code> (cloud free tier <strong>or</strong> local Ollama set up)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>/models</code> lists your choice; one chat completed successfully</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Basic permission posture set: <code>"*": "ask"</code> for shell, <code>"rm *": "deny"</code>, <code>"git push *": "deny"</code> while learning</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Keys live in <code>auth.json</code> / env vars — never in project files</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Practice folder exists and is far from anything precious</li>
+</ul>
+<h2 id="b-starting-a-new-project">B. Starting a new project</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>mkdir &lt;project&gt; &amp;&amp; cd &lt;project&gt;</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git init</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>.gitignore</code> created (env, secrets, caches — see Chapter 6)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> minimal <code>README.md</code> in your own words (three lines counts)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>opencode</code>, then <code>/init</code> to generate <code>AGENTS.md</code>; review &amp; personalise it</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> First commit: <code>git add -A &amp;&amp; git commit -m "initial project setup"</code></li>
+</ul>
+<h2 id="c-every-ai-work-task-the-loop-card">C. Every AI work task (the loop card)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git status</code> clean; commit anything pending first</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Prompt has all four parts: <strong>goal, context (<code>@files</code>), constraints, definition of done</strong></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> One task per prompt; big tasks went through <strong>Plan mode first</strong></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> AI asked questions (or you asked it: "anything unclear?")</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> After build: <code>git diff --stat</code>, then read the diff</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Review prompts used ("riskiest part? what would you test first?")</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Program actually run; old features still fine</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> No secrets, no weird URLs in the diff</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Accept → commit (specific message) — or <code>git restore .</code> and re-prompt</li>
+</ul>
+<h2 id="d-privacy-and-secrets-sweep-every-commit-30-seconds">D. Privacy and secrets sweep (every commit — 30 seconds)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git diff --staged</code> shows no keys, tokens, passwords, <code>.env</code> lines</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Nothing client/patient/customer-specific in any prompt today</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Sensitive work done on a local model, if applicable</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> No share-links created for private sessions</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> If a leak happened: revoke → rotate → reconnect → clean the file</li>
+</ul>
+<h2 id="e-free-tier-triage-when-things-get-sticky">E. Free-tier triage (when things get sticky)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Identified the limit: rate quota / context window / quality floor / provider load</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Fresh session for a fresh context</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>AGENTS.md</code> re-<code>/init</code>-ed if structure changed</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Rotation considered (<code>/models</code> to secondary cloud or local)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Plan saved on (digital) paper for tomorrow's fresh quota</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Provider's current limits page checked within the last 30 days</li>
+</ul>
+<h2 id="f-before-telling-anyone-it-works">F. Before telling anyone it "works"</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Done-definition met exactly as written in the prompt</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Bad inputs tried: empty file, wrong file, no network, giant file</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Restarted from scratch once (does it <em>still</em> work?)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Diff reviewed by at least one non-AI intelligence (you)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Committed with a message that explains <em>why</em></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You could explain to a friend what changed without opening the code… going for a second look only</li>
+</ul>
+<h2 id="the-pocket-glossary">The pocket glossary</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent</td>
+<td>A tool that acts (reads, edits, runs), not just chats</td>
+</tr>
+<tr>
+<td>AGENTS.md</td>
+<td>Per-project briefing file OpenCode reads each session</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>A parallel line of history; a free sandbox</td>
+</tr>
+<tr>
+<td>Build mode</td>
+<td>OpenCode mode where changes are allowed</td>
+</tr>
+<tr>
+<td>Commit</td>
+<td>A labelled snapshot of the project (<code>git commit</code>)</td>
+</tr>
+<tr>
+<td>Context window</td>
+<td>How much the model can consider at once (tokens)</td>
+</tr>
+<tr>
+<td>Diff</td>
+<td>Line-by-line change view (<code>git diff</code>)</td>
+</tr>
+<tr>
+<td>Free tier</td>
+<td>No-cost usage level with caps</td>
+</tr>
+<tr>
+<td>Local model</td>
+<td>An open-weights model running on your machine (Ollama etc.)</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>The AI "brain" (Qwen-Coder, GLM, GPT, Claude…)</td>
+</tr>
+<tr>
+<td>Permission</td>
+<td>allow / ask / deny rule for a tool</td>
+</tr>
+<tr>
+<td>Plan mode</td>
+<td>Propose-only mode (Tab toggles it)</td>
+</tr>
+<tr>
+<td>Repo</td>
+<td>A Git-tracked project folder</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>Unit of AI text; ~¾ of a word</td>
+</tr>
+<tr>
+<td>Tool</td>
+<td>An ability: read file, run command, fetch page…</td>
+</tr>
+<tr>
+<td>TUI</td>
+<td>Text user interface (OpenCode's terminal app)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-to-go-next">Where to go next</h2>
+<p>The skills in this book compound in a specific order. Once the loop above feels routine:</p>
+<ol>
+<li><strong>Branches and GitHub</strong> — publish projects, and let the cloud back up your safety net.</li>
+<li><strong>Formatters and tests</strong> — automate the parts of review that are mechanical.</li>
+<li><strong>Custom agents and MCP servers</strong> — teach OpenCode new tools; the same permission thinking gates new power (opencode.ai/docs/agents, /mcp-servers).</li>
+<li><strong>Local models, deeper</strong> — bigger Qwen/GLM-class models if your hardware allows; the Ollama recipe from Chapter 3 scales up unchanged.</li>
+<li><strong>Come back to Chapter 10</strong> — the checklists age well and everything else around them will have changed by then, which is exactly what books are for and pages like this one.</li>
+</ol>
+<p>You now know more about working safely and productively with AI coding tools than most people who <em>pay</em> for them. Keep the junior-developer model in mind, keep Git between you and regret, and build something you'd proudly explain to a friend.</p>
+<p>— End of the book. —</p></section><hr>
+</main>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+
+</body>
+</html>

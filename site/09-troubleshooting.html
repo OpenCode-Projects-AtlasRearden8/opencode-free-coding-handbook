@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 9 — Troubleshooting · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 9 — Troubleshooting</h1>
+<div class="chapter-meta">Chapter 9/10 · ~1,233 words · ~6 min read</div>
+<p>Everything breaks sometimes — terminals, keys, models, permissions — and the fix is almost always in the top ten possibilities. This chapter is a giant symptom → cause → fix table plus a few "get unstuck manually" walkthroughs. Keep it open when something misbehaves; skim it on a good day so it's familiar on a bad one.</p>
+<h2 id="the-universal-debugging-drills">The universal debugging drills</h2>
+<p>Before the tables: three habits that solve half of all problems before you look anything up.</p>
+<ol>
+<li><strong>Reproduce it exactly.</strong> Same command, same folder, same order. Flaky problems are diagnosis-eaters; a stable reproduction is half the diagnosis.</li>
+<li><strong>Change one thing at a time.</strong> New terminal? Or new model? Not both. One variable, then test.</li>
+<li><strong>Read the actual error.</strong> Out loud, like it matters. Most are surprisingly plain: <code>command not found</code>, <code>401</code>, <code>permission denied</code>. Match them below.</li>
+</ol>
+<h2 id="part-a-opencode-itself">Part A: OpenCode itself</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opencode: command not found</code></td>
+<td>Shell PATH doesn't include install dir, or stale shell</td>
+<td>Open a <strong>fresh</strong> terminal; if persists, find the install dir (<code>npm config get prefix</code> for npm) and add its <code>bin</code> to PATH (Ch. 2)</td>
+</tr>
+<tr>
+<td>TUI renders scrambled / colours wrong</td>
+<td>Weak terminal emulator</td>
+<td>Switch to Ghostty, WezTerm, Kitty, Alacritty (or WSL on Windows)</td>
+</tr>
+<tr>
+<td>Screen garbles after resizing</td>
+<td>Terminal resize event missed</td>
+<td>Press <strong>Ctrl+L</strong>, or restart the TUI</td>
+</tr>
+<tr>
+<td>Version numbers unchanged after update</td>
+<td>Old install copy shadowing a new one</td>
+<td><code>which opencode</code> (or <code>where</code> on Windows) — confirm which one runs; re-run installer; open fresh terminal</td>
+</tr>
+<tr>
+<td>Freezes / keys dead</td>
+<td>Rare TUI/terminal hiccup</td>
+<td><strong>Ctrl+C</strong> twice to exit cleanly; relaunch. Losing nothing but session view</td>
+</tr>
+<tr>
+<td>Everything is slow or erroring at once</td>
+<td>Provider load/outage today</td>
+<td>Try a second model/provider (<code>/models</code>); check the provider's status page</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-b-authentication-and-keys">Part B: Authentication and keys</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>401 Unauthorized</code> / <code>invalid API key</code></td>
+<td>Key wrong, revoked, or pasted with a typo</td>
+<td>Re-run <code>/connect</code> for that provider; paste fresh key; restart OpenCode</td>
+</tr>
+<tr>
+<td><code>/models</code> shows nothing usable</td>
+<td>No provider configured yet</td>
+<td>Complete <code>/connect</code> first (Recipe in Ch. 3)</td>
+</tr>
+<tr>
+<td>"Model requires a higher plan" (Copilot)</td>
+<td>That model is tier-gated</td>
+<td>Pick another model; free plans don't carry top models</td>
+</tr>
+<tr>
+<td>Key leaked (committed/pasted anywhere)</td>
+<td>Rotation needed</td>
+<td>Revoke at the provider's website → re-<code>/connect</code> → clean the file/commit (Ch. 4)</td>
+</tr>
+<tr>
+<td>Auth resets every launch</td>
+<td>Permissions problem on <code>~/.local/share/opencode/auth.json</code></td>
+<td>Check file exists &amp; is readable by you; re-connect once</td>
+</tr>
+</tbody>
+</table>
+<p>Do remember where keys live — <code>~/.local/share/opencode/auth.json</code> on Linux/macOS/WSL — and that "delete the file" is <em>not</em> the fix for a leak. Revoke-rotate-reconnect is the fix.</p>
+<h2 id="part-c-models-and-providers">Part C: Models and providers</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>429</code> / rate-limit errors</td>
+<td>Free quota for the hour/day</td>
+<td>Wait (quota windows reset); switch model/provider; plan offline (Ch. 8)</td>
+</tr>
+<tr>
+<td>Tool calls fail or the AI "forgets" instructions mid-task</td>
+<td>Local model with small context</td>
+<td>Raise Ollama's <code>num_ctx</code> (16k–32k to start); confirm the model supports tool calls; prefer coder models</td>
+</tr>
+<tr>
+<td>Weird refusal-y/beepy answers from a big cloud</td>
+<td>Wrong provider endpoint or free-tier route swapped to a small model</td>
+<td><code>/models</code>, pick explicitly; retry; nothing at all is ever your fault here</td>
+</tr>
+<tr>
+<td>Extremely slow responses</td>
+<td>Server load, or a very big model on weak local hardware</td>
+<td>Off-peak retry; or check <code>ollama ps</code> — is it CPU-thrashing?</td>
+</tr>
+<tr>
+<td>Nonsense answers on a local model</td>
+<td>Corrupted/partial download, wrong model</td>
+<td><code>ollama pull &lt;model&gt;</code> again; check RAM fit for the model size</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-d-files-edits-and-permission-prompts">Part D: Files, edits, and permission prompts</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI won't read a file</td>
+<td><code>.env</code> read is denied by default (by design)</td>
+<td>Env vars or manual value; true need = explicit override <em>with a reason</em> (Ch. 4)</td>
+</tr>
+<tr>
+<td>"Permission denied" prompts flood in</td>
+<td><code>"*": "ask"</code> posture</td>
+<td>That's fine; approve via <strong>always</strong> for safe categories (git status, grep) once you trust them</td>
+</tr>
+<tr>
+<td>AI edits files outside the project</td>
+<td><code>external_directory</code> allows it</td>
+<td>Set explicit path rules; default is <code>ask</code> — keep it</td>
+</tr>
+<tr>
+<td>AI repeats the same failing action</td>
+<td><code>doom_loop</code> should ask by default</td>
+<td>Approve investigation or reject; often the underlying task is impossible as stated — re-prompt</td>
+</tr>
+<tr>
+<td>AI can't run a specific command</td>
+<td>Your <code>permission.shell</code> rules deny it</td>
+<td>Add a precise allow rule (e.g. <code>"pytest *": "allow"</code>), deny for <code>rm *</code> stays</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-e-project-level-oddities">Part E: Project-level oddities</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every answer misses the project's structure</td>
+<td>Stale or missing <code>AGENTS.md</code></td>
+<td>Re-run <code>/init</code> after big structural changes; commit <code>AGENTS.md</code> (Ch. 2, 6)</td>
+</tr>
+<tr>
+<td>AI says the file doesn't exist (it does)</td>
+<td>Wrong path or context window lost it</td>
+<td>Use <code>@</code> to hard-reference it; restart session for a fresh context</td>
+</tr>
+<tr>
+<td>Changes lost after closing OpenCode</td>
+<td><code>/undo</code>'d but never committed, or plain not-saved</td>
+<td>Commit early, commit often (Ch. 6) — OpenCode history is not Git history</td>
+</tr>
+<tr>
+<td>Everything looks fine but tests fail silently</td>
+<td>Test command differing from project convention (<code>/init</code> writes the right one)</td>
+<td>Use the commands in <code>AGENTS.md</code> or ask the AI which test command your project expects</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-f-git-rescue-recipes">Part F: Git "rescue" recipes</h2>
+<p>Common beginner Git scares, resolved:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>What is true</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"I made a mess and want yesterday's version"</td>
+<td>Last good commit exists</td>
+<td><code>git restore .</code> (unsaved changes) or <code>git checkout &lt;hash&gt;</code> to look back (then branch or copy)</td>
+</tr>
+<tr>
+<td>"I staged a secret!"</td>
+<td>Staging is safe; commit is the door</td>
+<td><code>git restore --staged &lt;file&gt;</code> to unstage; <strong>if already committed</strong>, remove the secret, rotate it at the provider, then commit the removal</td>
+</tr>
+<tr>
+<td>"I committed something wrong"</td>
+<td>Commits are printable history</td>
+<td>Fix the file, commit again; for <em>fresh local</em> mistakes, <code>git commit --amend</code> is OK. Never rewrite pushed history</td>
+</tr>
+<tr>
+<td>"My branch is a disaster"</td>
+<td>Branchies are free</td>
+<td><code>git checkout main</code> (or your main branch), start fresh; delete the ruin with <code>git branch -D &lt;name&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="when-to-ask-for-help">When to ask for help</h2>
+<p>You are entitled to ask for help, and knowing where helps twice:</p>
+<ul>
+<li><strong>OpenCode's own docs</strong> — opencode.ai/docs — always current, and this book deliberately sticks to their shape.</li>
+<li><strong>The TUI's <code>/help</code></strong> — the fastest answer for keys and commands.</li>
+<li><strong>OpenCode's Discord/GitHub</strong> — real humans, and bug reports are welcome there. Search first; your exact error text is often already answered.</li>
+<li><strong>Error messages, verbatim</strong>, always travel with you to any of these.</li>
+</ul>
+<h2 id="the-triage-card-when-panic-arrives">The triage card (when panic arrives)</h2>
+<ol>
+<li>Fresh terminal. Fresh session.</li>
+<li><code>opencode --version</code>; confirm which binary.</li>
+<li>One-variable change; retest.</li>
+<li>Read the error verbatim; match it to the tables above.</li>
+<li><code>/models</code> swap to a fallback path.</li>
+<li><code>git status</code>/<code>git diff</code> to confirm nothing precious is lost.</li>
+<li>Still stuck: docs → Discord → walk away for ten minutes (seriously, this fixes human-scale bugs).</li>
+</ol>
+<p>Ninety percent of beginner "it's broken" moments die by step 4.</p>
+<hr />
+</main>
+<div class="nav">
+<a href="08-limits-of-free-tiers.html">← Chapter 8 — Limits of Free Tiers (and Working Within Them)</a>
+<a href="10-appendix-checklists.html">Chapter 10 — Appendix: The Checklists and Glossary →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

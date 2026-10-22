@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 1 — What Is OpenCode? · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 1 — What Is OpenCode?</h1>
+<div class="chapter-meta">Chapter 1/10 · ~1,398 words · ~6 min read</div>
+<h2 id="from-chatbot-to-coworkers">From chatbot to coworkers</h2>
+<p>You have probably used an AI chatbot in a browser. You type a question, it answers, you copy what you like. That is a <em>conversation</em>.</p>
+<p><strong>OpenCode is different.</strong> It is an <strong>AI coding agent</strong>: instead of just talking <em>about</em> your code, it can actually <em>work on it</em> — reading your files, writing changes, running commands in your terminal, and reporting back. The difference is the difference between asking a friend "how do I change a tire?" and handing your keys to a mechanic who does it while you watch.</p>
+<p>Here is what an agent can do that a plain chatbot cannot:</p>
+<table>
+<thead>
+<tr>
+<th>Ability</th>
+<th>Browser chatbot</th>
+<th>OpenCode (an agent)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Explain code</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Read the files in your project</td>
+<td>Only if you paste them</td>
+<td>Yes — it can open and read files itself</td>
+</tr>
+<tr>
+<td>Edit files directly</td>
+<td>No</td>
+<td>Yes, with your permission</td>
+</tr>
+<tr>
+<td>Run commands (tests, builds, Git)</td>
+<td>No</td>
+<td>Yes, with your permission</td>
+</tr>
+<tr>
+<td>Work across many files at once</td>
+<td>Painfully, via copy-paste</td>
+<td>Yes — that is its whole job</td>
+</tr>
+<tr>
+<td>Remember your project's style</td>
+<td>No</td>
+<td>Yes — via an <code>AGENTS.md</code> file it writes for your project</td>
+</tr>
+</tbody>
+</table>
+<p>That last row deserves a quick explanation. When you first run OpenCode in a project, you type <code>/init</code>. OpenCode looks around your project, figures out what it is (a blog? a data-cleaning script? a shop?), and writes an <code>AGENTS.md</code> file — think of it as a <em>welcome note to the AI</em>, describing the project layout, the conventions, and the commands that build and test it. From then on, every session starts with OpenCode already knowing the house rules.</p>
+<h2 id="what-opencode-actually-is">What OpenCode actually is</h2>
+<p>A few facts, so you know what you are getting into:</p>
+<ul>
+<li><strong>Open source.</strong> The code is public; anyone can inspect it. You are trusting software you can read.</li>
+<li><strong>Runs in your terminal.</strong> The main interface is a friendly text-based app (called a <strong>TUI</strong> — a <em>text user interface</em>). There is also a desktop app and an IDE extension, but this book focuses on the terminal, because it is the most reliable path and teaches you the most.</li>
+<li><strong>Model-agnostic.</strong> OpenCode does not lock you to one company. It supports <strong>75+ providers</strong> — big labs, small labs, and your own computer. That is exactly why a book about <em>free</em> AI coding is possible: you can point OpenCode at whatever is free today.</li>
+<li><strong>Permission-aware.</strong> By default it asks before editing files and before running commands. Chapter 4 turns this dial up or down.</li>
+</ul>
+<h2 id="the-mental-model-a-junior-developer-on-your-team">The mental model: a junior developer on your team</h2>
+<p>Beginners often swing between two extremes: treating the AI like a magic oracle, or treating it like a hostile autocomplete. Neither is useful.</p>
+<p>The model that works is this: <strong>you have hired a junior developer who is extremely fast, extremely tireless, extremely confident — and who does not know your project yet.</strong></p>
+<p>What follows from that little story:</p>
+<ol>
+<li><strong>You have to give real instructions.</strong> "Make it better" is not spec. "Add a search box to the top of the notes page that filters by title, and show 'no results' when nothing matches" is.</li>
+<li><strong>You have to review the work.</strong> Fast and confident means fast and confident <em>mistakes</em>. Not malicious ones — just ordinary misunderstandings. Your review is the quality control. Chapter 7 gives you the routine.</li>
+<li><strong>You should protect the project.</strong> A careful senior developer never lets someone push straight to the live product with no review and no undo. Chapter 6 teaches you Git, which is exactly that protection.</li>
+<li><strong>You can lean on it for the boring parts.</strong> Explaining unfamiliar code, writing repetitive boilerplate, renaming things everywhere, drafting tests — this is where agents shine, and where they free <em>you</em> to think.</li>
+</ol>
+<p>If you internalize the junior-developer model, everything else in this book will feel obvious rather than fussy.</p>
+<h2 id="the-five-step-working-loop">The five-step working loop</h2>
+<p>Almost everything you do with OpenCode follows the same small loop. Learn it once; use it forever:</p>
+<ol>
+<li><strong>Ask.</strong> Describe what you want, with context. (Chapter 5.)</li>
+<li><strong>Plan.</strong> For anything bigger than a small tweak, press <strong>Tab</strong> to switch OpenCode into <strong>Plan mode</strong>. In Plan mode the AI is <em>forbidden</em> from changing files — it can only propose an approach. You read the plan, correct it, and iterate until it matches what you actually wanted.</li>
+<li><strong>Build.</strong> Press <strong>Tab</strong> again to return to Build mode and say "go ahead." The AI edits files, runs commands, and narrates what it did.</li>
+<li><strong>Review.</strong> Look at what changed (<code>git diff</code>, Chapter 7), ask follow-up questions, and test the result.</li>
+<li><strong>Undo or proceed.</strong> Happy? Commit your work with Git. Unhappy? Type <code>/undo</code> to back out the changes and try again with a better prompt. OpenCode keeps a history, so you can also <code>/redo</code> if you change your mind — and <code>/undo</code> more than once to walk back further.</li>
+</ol>
+<blockquote>
+<p><strong>Why Plan mode matters.</strong> Beginners pay for AI mistakes in churn: "no, not like that — undo — try again." Plans cost seconds; wrong builds cost minutes and leave a mess. The pros you watch in AI-coding videos are mostly just people who insist on good plans.</p>
+</blockquote>
+<h2 id="a-tiny-tour-of-the-terminology">A tiny tour of the terminology</h2>
+<p>You will meet these words constantly. Here is the whole cheat sheet in one table — bookmark this page.</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Plain meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Model</strong></td>
+<td>The AI "brain" — e.g., Qwen 3 Coder, GLM, GPT, Claude. Different models differ hugely at coding tasks.</td>
+</tr>
+<tr>
+<td><strong>Provider</strong></td>
+<td>The company or service that serves a model — OpenAI, Anthropic, Groq, Google, your own machine. Usually you need an account or a programme installed.</td>
+</tr>
+<tr>
+<td><strong>API key</strong></td>
+<td>A long password-like string that proves to a provider that you are you. Keep it secret; never paste it into code you share.</td>
+</tr>
+<tr>
+<td><strong>Token</strong></td>
+<td>The unit of AI text — about ¾ of a word. Providers bill and limit by tokens. Your prompt uses input tokens; the answer uses output tokens.</td>
+</tr>
+<tr>
+<td><strong>Context window</strong></td>
+<td>How much text (your files + conversation) the model can consider at once, measured in tokens. Too-small context = the AI "forgets" things you said.</td>
+</tr>
+<tr>
+<td><strong>Free tier</strong></td>
+<td>A no-cost usage level offered by a provider, usually with daily/monthly limits.</td>
+</tr>
+<tr>
+<td><strong>TUI</strong></td>
+<td>Text user interface — OpenCode's terminal app.</td>
+</tr>
+<tr>
+<td><strong>Tool</strong></td>
+<td>An ability the agent can use: read a file, edit a file, run a shell command, search the web. Each tool can have its own permission rule.</td>
+</tr>
+<tr>
+<td><strong>Permission</strong></td>
+<td>Your rulebook: <code>allow</code>, <code>ask</code>, or <code>deny</code> for each tool. Chapter 4.</td>
+</tr>
+<tr>
+<td><strong>Agent mode</strong></td>
+<td>Build mode vs Plan mode — whether the AI may change things or only propose.</td>
+</tr>
+<tr>
+<td><strong>AGENTS.md</strong></td>
+<td>The project guidebook file that OpenCode reads at startup; <code>/init</code> creates it.</td>
+</tr>
+<tr>
+<td><strong>Repository (repo)</strong></td>
+<td>A folder tracked by Git, so changes are recorded and reversible. Chapter 6.</td>
+</tr>
+<tr>
+<td><strong>Diff</strong></td>
+<td>The line-by-line "what changed" view. How you review AI work.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-opencode-is-not">What OpenCode is <em>not</em></h2>
+<p>To keep expectations calibrated:</p>
+<ul>
+<li><strong>It is not a one-click app builder.</strong> It will not guess your business away from you. It needs your decisions, clearly stated. (Chapter 5 fixes that.)</li>
+<li><strong>It is not infallible.</strong> Models sometimes misread intent, invent a function that does not exist, or quietly break a part of your project you did not mention. This is normal, expected, and fully recoverable with the loop above — especially if you have Git.</li>
+<li><strong>It is not free of <em>judgment</em>.</strong> Even with a free model, <em>you</em> are responsible for what it produces and what you ship. Reviewing is not optional bureaucracy; it is the job.</li>
+</ul>
+<h2 id="your-first-look-ahead">Your first look ahead</h2>
+<p>In Chapter 2, you will install OpenCode in about ten minutes using one command, open it in a practice folder, and take it for a spin. Then Chapter 3 gets you a capable model <em>without paying anyone anything</em>.</p>
+<p>If you ever feel lost in the jargon, come back to the table above. Every beginner is confused by this vocabulary for roughly a week; after that it is simply how you talk.</p>
+<hr />
+</main>
+<div class="nav">
+<a href="index.html">← Welcome — Read Me First</a>
+<a href="02-installing-opencode.html">Chapter 2 — Installing OpenCode →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

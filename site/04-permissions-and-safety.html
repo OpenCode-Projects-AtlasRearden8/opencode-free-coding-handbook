@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 4 — Permissions and Safety · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 4 — Permissions and Safety</h1>
+<div class="chapter-meta">Chapter 4/10 · ~1,297 words · ~6 min read</div>
+<p>Here is the sentence that makes this chapter matter: <strong>an agent that can edit files and run commands is powerful, and power without guardrails is how beginners get hurt.</strong> OpenCode ships with sensible guardrails. This chapter shows you how they work, how to tune them, and how to develop habits that make AI coding safe even on a free model.</p>
+<h2 id="the-permission-dial-allow-ask-deny">The permission dial: allow, ask, deny</h2>
+<p>OpenCode uses a <code>permission</code> config to decide, for every action it wants to take, one of three answers:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Meaning</th>
+<th>Feels like</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"allow"</code></td>
+<td>Runs without asking you</td>
+<td>Trust-but-log</td>
+</tr>
+<tr>
+<td><code>"ask"</code></td>
+<td>Prompts you; you decide each time</td>
+<td>Traffic light on yellow</td>
+</tr>
+<tr>
+<td><code>"deny"</code></td>
+<td>Blocks the action entirely</td>
+<td>Hard fence</td>
+</tr>
+</tbody>
+</table>
+<p>Every tool can get its own setting. The main keys, straight from OpenCode's design:</p>
+<table>
+<thead>
+<tr>
+<th>Permission key</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>read</code></td>
+<td>Reading files (rule matches the file path). <strong><code>.env</code> files are denied by default</strong> — see below.</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td>All file changes (edit, write, patch)</td>
+</tr>
+<tr>
+<td><code>shell</code></td>
+<td>Terminal commands (matches the command text, e.g. <code>git status --porcelain</code>)</td>
+</tr>
+<tr>
+<td><code>glob</code> / <code>grep</code></td>
+<td>File searches</td>
+</tr>
+<tr>
+<td><code>webfetch</code> / <code>websearch</code></td>
+<td>Fetching URLs / searching the web</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>Spawned subagents</td>
+</tr>
+<tr>
+<td><code>skill</code></td>
+<td>Loaded skills</td>
+</tr>
+<tr>
+<td><code>external_directory</code></td>
+<td>Touching files <strong>outside</strong> the folder you started OpenCode in (asks by default)</td>
+</tr>
+<tr>
+<td><code>doom_loop</code></td>
+<td>Detects the AI repeating the identical failing tool call three times (asks by default)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-the-rules-live-and-how-they-match">Where the rules live, and how they match</h2>
+<p>Put rules in your OpenCode config — globally at <code>~/.config/opencode/opencode.json</code>, or per-project in <code>opencode.json</code> at the project root. The simplest global stance:</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;permission&quot;: {
+    &quot;*&quot;: &quot;ask&quot;,
+    &quot;edit&quot;: &quot;allow&quot;
+  }
+}
+</code></pre>
+<p>This says: let the AI edit files freely (you will review via Git anyway — Chapter 6), but <strong>ask before every terminal command, web fetch, and everything else</strong>. That is a wonderful beginner posture. It is a little more clicky, but each prompt is a free safety lesson about what the AI is currently doing.</p>
+<p>Rules match with patterns, and <strong>the last matching rule wins</strong>. A common and sensible pattern: allow safe read-only commands, ask about the world, deny the genuinely dangerous:</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;permission&quot;: {
+    &quot;shell&quot;: {
+      &quot;*&quot;: &quot;ask&quot;,
+      &quot;git *&quot;: &quot;allow&quot;,
+      &quot;npm *&quot;: &quot;allow&quot;,
+      &quot;grep *&quot;: &quot;allow&quot;,
+      &quot;rm *&quot;: &quot;deny&quot;
+    }
+  }
+}
+</code></pre>
+<p>Notes on pattern matching, because everyone trips here once:</p>
+<ul>
+<li><code>*</code> matches anything; <code>?</code> matches exactly one character.</li>
+<li><code>"grep *"</code> allows <code>grep thing file.txt</code>. Bare <code>"grep"</code> would <em>not</em> cover <code>grep</code> with arguments — patterns must include the wildcard to cover arguments.</li>
+<li><strong>Last rule wins</strong>, so specificity goes <em>after</em> the catch-all. In the example above, <code>rm *</code> comes after <code>"*"</code> on purpose.</li>
+<li>Also useful: <code>"git push *": "deny"</code> in any config where you never want the AI to publish anything. This book's default stance is exactly that: the AI reads, writes, and commits locally; <em>pushing to the internet stays your job</em>.</li>
+</ul>
+<p>You can also restrict where OpenCode may even look. Paths outside the start folder are gated by <code>external_directory</code> (asks by default). Keep it that way unless you have a reason.</p>
+<h2 id="what-ask-looks-like-and-the-three-answers">What "ask" looks like, and the three answers</h2>
+<p>When OpenCode prompts you, you pick from:</p>
+<ul>
+<li><strong>once</strong> — approve this single request;</li>
+<li><strong>always</strong> — approve this <em>category</em> of requests for the rest of the session (e.g. all <code>git status*</code> commands);</li>
+<li><strong>reject</strong> — no.</li>
+</ul>
+<p>Beginner guidance: read the prompt. It shows exactly what will run. If a shell command surprises you — press reject, then ask the AI why it wanted to run that. Surprises are information. If nothing surprises you any more, that is your cue that <code>always</code> is safe for that category.</p>
+<h2 id="auto-mode-speed-with-a-fence">Auto mode: speed with a fence</h2>
+<p><code>opencode --auto</code> auto-approves everything that would normally ask — <strong>except rules explicitly set to <code>deny</code></strong>, which still bite. It is great for long, well-understood tasks on a safe project. It is <em>not</em> for your first week. If you use it, keep at least these denies in place:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>rm *</code> (or at minimum any pattern touching files you care about)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git push *</code> (publishing stays manual)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>webfetch</code> / <code>websearch</code> if you want the AI browsing only when you say so</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>.env</code> reads (the default denies them; keep it that way)</li>
+</ul>
+<h2 id="secrets-the-non-negotiables">Secrets: the non-negotiables</h2>
+<p>Some rules in this book are habits; these are laws:</p>
+<ol>
+<li><strong>Never put API keys in files inside your project.</strong> Keys belong in OpenCode's auth store (<code>~/.local/share/opencode/auth.json</code>) or environment variables — nowhere else, not even "temporarily."</li>
+<li><strong>Never let <code>.env</code> contents into a conversation.</strong> OpenCode denies reading <code>.env</code> by default <em>on purpose</em> — leave it that way. If the AI truly needs a value from <code>.env</code>, set it as an environment variable yourself or tell the AI <em>which</em> value in words, without pasting the secret.</li>
+<li><strong>Never commit secrets to Git.</strong> Chapter 6's <code>.gitignore</code> protects you; the reviewing chapter (7) has a pre-commit secret check.</li>
+<li><strong>Rotate, don't panic.</strong> If a key leaks (committed, pasted, shared), go to the provider's website and revoke/rotate it. That takes two minutes and neutralizes the leak.</li>
+<li><strong>Mind AI-supplied links.</strong> Free models occasionally hallucinate plausible-looking URLs. Never log in "via a link the AI gave you" — navigate to the provider's site yourself.</li>
+</ol>
+<h2 id="privacy-where-does-your-code-actually-go">Privacy: where does your code actually go?</h2>
+<p>With a cloud model, your prompts — meaning your code and file contents — travel to that provider's servers. Facts to internalize:</p>
+<ul>
+<li><strong>Local models (Ollama, LM Studio, llama.cpp) keep everything on your machine.</strong> Strongest option for sensitive material.</li>
+<li><strong>Free cloud tiers often train on your data.</strong> If the provider's free tier says it may use data to improve models, that text usually means exactly what it appears to mean.</li>
+<li><strong>Sessions may be shareable.</strong> Some OpenCode versions can publish a share-link of a session. If such a feature is present, treat it like publishing pages on the internet — a fine way to show off a demo project, a terrible way to "ask friends about" anything private.</li>
+<li>As a nurse-turned-author, our founder's rule is worth borrowing: <strong>treat patient, client, or customer details as radioactive in any AI context unless the tooling is explicitly designed and contracted for it.</strong> This book is about tools and learning; it is never a place to paste real case data.</li>
+</ul>
+<h2 id="your-first-signin-safety-checklist">Your first-signin safety checklist</h2>
+<p>Do these five minutes of tuning once, then relax:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Set <code>"*": "ask"</code> for <code>shell</code> (commands get prompts)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Add <code>"rm *": "deny"</code> to <code>shell</code> rules</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Decide on <code>"git push *"</code>: <code>deny</code> while you learn, <code>ask</code> later</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Leave <code>read</code> rules at default so <code>.env</code> stays denied</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Leave <code>external_directory</code> at <code>ask</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Check your model choice's privacy posture (Chapter 3)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Confirm keys live in <code>auth.json</code> or env vars, not project files</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Turn off auto-approvals (<code>--auto</code> unused) until Git is in your routine</li>
+</ul>
+<h2 id="a-gentle-word-about-what-safety-is-for">A gentle word about what safety is <em>for</em></h2>
+<p>Safety rails are not distrust of you. They exist because this is a <em>new way of working</em>: software now proposes changes to your disk, your terminal, and your network, and the human reviewing it is learning to review. Every prompt you approve in your first weeks is a tiny education in what agents do. By the time auto mode truly suits you, you will <em>know</em> why — because you will have read a hundred of those prompts. That earned confidence is the whole game.</p>
+<hr />
+</main>
+<div class="nav">
+<a href="03-picking-free-models.html">← Chapter 3 — Picking Free Models</a>
+<a href="05-writing-good-task-prompts.html">Chapter 5 — Writing Good Task Prompts →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

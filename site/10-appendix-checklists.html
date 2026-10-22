@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 10 — Appendix: The Checklists and Glossary · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 10 — Appendix: The Checklists and Glossary</h1>
+<div class="chapter-meta">Chapter 10/10 · ~946 words · ~4 min read</div>
+<p>This is the shortest chapter and the one you'll use most. It compresses the whole book into routines you can run without re-reading anything. Print these, or keep this chapter open as a tab.</p>
+<h2 id="a-first-session-setup-once-per-computer">A. First-session setup (once per computer)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Good terminal chosen (WSL on Windows; Ghostty/Kitty/WezTerm elsewhere)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> OpenCode installed and <code>opencode --version</code> answers</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Git installed and identity configured (<code>git config --global user.name/user.email</code>)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> A provider connected via <code>/connect</code> (cloud free tier <strong>or</strong> local Ollama set up)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>/models</code> lists your choice; one chat completed successfully</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Basic permission posture set: <code>"*": "ask"</code> for shell, <code>"rm *": "deny"</code>, <code>"git push *": "deny"</code> while learning</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Keys live in <code>auth.json</code> / env vars — never in project files</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Practice folder exists and is far from anything precious</li>
+</ul>
+<h2 id="b-starting-a-new-project">B. Starting a new project</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>mkdir &lt;project&gt; &amp;&amp; cd &lt;project&gt;</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git init</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>.gitignore</code> created (env, secrets, caches — see Chapter 6)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> minimal <code>README.md</code> in your own words (three lines counts)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>opencode</code>, then <code>/init</code> to generate <code>AGENTS.md</code>; review &amp; personalise it</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> First commit: <code>git add -A &amp;&amp; git commit -m "initial project setup"</code></li>
+</ul>
+<h2 id="c-every-ai-work-task-the-loop-card">C. Every AI work task (the loop card)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git status</code> clean; commit anything pending first</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Prompt has all four parts: <strong>goal, context (<code>@files</code>), constraints, definition of done</strong></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> One task per prompt; big tasks went through <strong>Plan mode first</strong></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> AI asked questions (or you asked it: "anything unclear?")</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> After build: <code>git diff --stat</code>, then read the diff</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Review prompts used ("riskiest part? what would you test first?")</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Program actually run; old features still fine</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> No secrets, no weird URLs in the diff</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Accept → commit (specific message) — or <code>git restore .</code> and re-prompt</li>
+</ul>
+<h2 id="d-privacy-and-secrets-sweep-every-commit-30-seconds">D. Privacy and secrets sweep (every commit — 30 seconds)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git diff --staged</code> shows no keys, tokens, passwords, <code>.env</code> lines</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Nothing client/patient/customer-specific in any prompt today</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Sensitive work done on a local model, if applicable</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> No share-links created for private sessions</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> If a leak happened: revoke → rotate → reconnect → clean the file</li>
+</ul>
+<h2 id="e-free-tier-triage-when-things-get-sticky">E. Free-tier triage (when things get sticky)</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Identified the limit: rate quota / context window / quality floor / provider load</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Fresh session for a fresh context</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>AGENTS.md</code> re-<code>/init</code>-ed if structure changed</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Rotation considered (<code>/models</code> to secondary cloud or local)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Plan saved on (digital) paper for tomorrow's fresh quota</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Provider's current limits page checked within the last 30 days</li>
+</ul>
+<h2 id="f-before-telling-anyone-it-works">F. Before telling anyone it "works"</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Done-definition met exactly as written in the prompt</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Bad inputs tried: empty file, wrong file, no network, giant file</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Restarted from scratch once (does it <em>still</em> work?)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Diff reviewed by at least one non-AI intelligence (you)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Committed with a message that explains <em>why</em></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You could explain to a friend what changed without opening the code… going for a second look only</li>
+</ul>
+<h2 id="the-pocket-glossary">The pocket glossary</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent</td>
+<td>A tool that acts (reads, edits, runs), not just chats</td>
+</tr>
+<tr>
+<td>AGENTS.md</td>
+<td>Per-project briefing file OpenCode reads each session</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>A parallel line of history; a free sandbox</td>
+</tr>
+<tr>
+<td>Build mode</td>
+<td>OpenCode mode where changes are allowed</td>
+</tr>
+<tr>
+<td>Commit</td>
+<td>A labelled snapshot of the project (<code>git commit</code>)</td>
+</tr>
+<tr>
+<td>Context window</td>
+<td>How much the model can consider at once (tokens)</td>
+</tr>
+<tr>
+<td>Diff</td>
+<td>Line-by-line change view (<code>git diff</code>)</td>
+</tr>
+<tr>
+<td>Free tier</td>
+<td>No-cost usage level with caps</td>
+</tr>
+<tr>
+<td>Local model</td>
+<td>An open-weights model running on your machine (Ollama etc.)</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>The AI "brain" (Qwen-Coder, GLM, GPT, Claude…)</td>
+</tr>
+<tr>
+<td>Permission</td>
+<td>allow / ask / deny rule for a tool</td>
+</tr>
+<tr>
+<td>Plan mode</td>
+<td>Propose-only mode (Tab toggles it)</td>
+</tr>
+<tr>
+<td>Repo</td>
+<td>A Git-tracked project folder</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>Unit of AI text; ~¾ of a word</td>
+</tr>
+<tr>
+<td>Tool</td>
+<td>An ability: read file, run command, fetch page…</td>
+</tr>
+<tr>
+<td>TUI</td>
+<td>Text user interface (OpenCode's terminal app)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-to-go-next">Where to go next</h2>
+<p>The skills in this book compound in a specific order. Once the loop above feels routine:</p>
+<ol>
+<li><strong>Branches and GitHub</strong> — publish projects, and let the cloud back up your safety net.</li>
+<li><strong>Formatters and tests</strong> — automate the parts of review that are mechanical.</li>
+<li><strong>Custom agents and MCP servers</strong> — teach OpenCode new tools; the same permission thinking gates new power (opencode.ai/docs/agents, /mcp-servers).</li>
+<li><strong>Local models, deeper</strong> — bigger Qwen/GLM-class models if your hardware allows; the Ollama recipe from Chapter 3 scales up unchanged.</li>
+<li><strong>Come back to Chapter 10</strong> — the checklists age well and everything else around them will have changed by then, which is exactly what books are for and pages like this one.</li>
+</ol>
+<p>You now know more about working safely and productively with AI coding tools than most people who <em>pay</em> for them. Keep the junior-developer model in mind, keep Git between you and regret, and build something you'd proudly explain to a friend.</p>
+<p>— End of the book. —</p>
+</main>
+<div class="nav">
+<a href="09-troubleshooting.html">← Chapter 9 — Troubleshooting</a>
+<span></span>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

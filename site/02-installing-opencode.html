@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 2 — Installing OpenCode · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 2 — Installing OpenCode</h1>
+<div class="chapter-meta">Chapter 2/10 · ~1,407 words · ~6 min read</div>
+<p>Installation sounds scary if you have never done "developer stuff" before. Good news: it is usually <strong>one command</strong>, and this chapter shows every option with full copy-paste instructions. Ten minutes from now you will have the tool running.</p>
+<h2 id="step-0-get-a-decent-terminal-first">Step 0: Get a decent terminal first</h2>
+<p>OpenCode lives in the <strong>terminal</strong>, so you want a terminal that renders it well. If you are on Windows, the single most important advice in this chapter is: <strong>use WSL</strong> (Windows Subsystem for Linux). Windows' classic console (<code>cmd.exe</code>) struggles with modern text interfaces. WSL gives you a real Linux environment inside Windows, and OpenCode's own documentation recommends it.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Recommended terminal</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td><strong>WSL</strong> (with Windows Terminal as the window)</td>
+<td>Full compatibility; skips most rendering problems. See Microsoft's "Install WSL" guide, then continue this chapter <em>inside</em> WSL.</td>
+</tr>
+<tr>
+<td>Windows (no WSL)</td>
+<td>Windows Terminal</td>
+<td>Workable via Chocolatey/Scoop/npm, but expect occasional display quirks.</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>iTerm2, Ghostty, Kitty, WezTerm, or plain <strong>Terminal.app</strong></td>
+<td>All fine; Ghostty and Kitty are OpenCode's favourite picks.</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>Ghostty, Kitty, Alacritty, WezTerm</td>
+<td>Nearly any modern emulator works. Very old ones (or plain <code>xterm</code>) can be flaky.</td>
+</tr>
+</tbody>
+</table>
+<p>Installing WSL (once, in PowerShell as Administrator):</p>
+<pre><code class="language-bash">wsl --install
+</code></pre>
+<p>Then restart your machine and open the new "Ubuntu" app. Everything below happens in that window, or in Terminal.app/Ghostty on Mac and Linux.</p>
+<h2 id="step-1-install-opencode">Step 1: Install OpenCode</h2>
+<p>Pick <strong>one</strong> method from the table — the first one that matches you. All methods produce the same <code>opencode</code> command.</p>
+<table>
+<thead>
+<tr>
+<th>Your situation</th>
+<th>Command</th>
+<th>Where to run it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux, macOS, or WSL (easiest)</td>
+<td><code>curl</code> one-liner — see just below the table</td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>You already use <strong>Node.js</strong></td>
+<td><code>npm install -g opencode-ai</code></td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>macOS/Linux with <strong>Homebrew</strong></td>
+<td><code>brew install anomalyco/tap/opencode</code></td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>Arch Linux</td>
+<td><code>sudo pacman -S opencode</code> (stable) or <code>paru -S opencode-bin</code> (newest)</td>
+<td>Terminal</td>
+</tr>
+<tr>
+<td>Windows without WSL</td>
+<td><code>choco install opencode</code> <strong>or</strong> <code>scoop install opencode</code> <strong>or</strong> <code>npm install -g opencode-ai</code></td>
+<td>PowerShell</td>
+</tr>
+<tr>
+<td>You prefer containers</td>
+<td><code>docker run -it --rm ghcr.io/anomalyco/opencode</code></td>
+<td>Anywhere Docker runs</td>
+</tr>
+</tbody>
+</table>
+<p>Note the <code>|</code> in the curl line below is a real pipe character. Copy it exactly as printed:</p>
+<pre><code class="language-bash">curl -fsSL https://opencode.ai/install | bash
+</code></pre>
+<h3 id="verifying-the-install">Verifying the install</h3>
+<p>Whatever method you chose, check it worked:</p>
+<pre><code class="language-bash">opencode --version
+</code></pre>
+<p>You should see a version number print and the shell come back. If instead you see <code>command not found</code>, your shell does not yet know where <code>opencode</code> lives. Two usual causes:</p>
+<ol>
+<li><strong>You just installed it</strong> and the shell has a stale list of commands. Close the terminal window completely, open a fresh one, and try again. This fixes it surprisingly often.</li>
+<li><strong>The install directory is not on your PATH</strong> (the list of folders your shell searches). The npm method is the classic case — try <code>npx opencode</code> as a stopgap, or find the folder npm used (<code>npm config get prefix</code>) and read Troubleshooting (Chapter 9) for the PATH fix.</li>
+</ol>
+<h3 id="keeping-it-updated">Keeping it updated</h3>
+<p>AI tooling moves quickly; update every few weeks:</p>
+<pre><code class="language-bash">opencode upgrade        # if your version supports it
+</code></pre>
+<p>or simply re-run the install command for your method — installers happily overwrite an older copy. Check what you have with <code>opencode --version</code>.</p>
+<h3 id="uninstalling-for-completeness">Uninstalling (for completeness)</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Uninstall command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>npm</td>
+<td><code>npm uninstall -g opencode-ai</code></td>
+</tr>
+<tr>
+<td>Homebrew</td>
+<td><code>brew uninstall opencode</code></td>
+</tr>
+<tr>
+<td>Arch</td>
+<td><code>sudo pacman -R opencode</code></td>
+</tr>
+<tr>
+<td>Chocolatey</td>
+<td><code>choco uninstall opencode</code></td>
+</tr>
+<tr>
+<td>curl script</td>
+<td>Delete the <code>opencode</code> binary from the folder the installer reported (often <code>~/.opencode/bin</code> or similar), then remove that folder from PATH</td>
+</tr>
+</tbody>
+</table>
+<h2 id="step-2-first-launch">Step 2: First launch</h2>
+<p>Now for your first ten wins. Work through this checklist in order — do not skip the practice folder; it keeps the mess far from anything important.</p>
+<p><strong>Your first-session checklist:</strong></p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Have the version confirmed (<code>opencode --version</code> works)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Create a playground, e.g. <code>mkdir ~/opencode-playground &amp;&amp; cd ~/opencode-playground</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Start the program: <code>opencode</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> See the chat interface</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Exit safely and re-launch it once, so the start/stop cycle is familiar</li>
+</ul>
+<p>Type <code>opencode</code> and press <strong>Enter</strong>:</p>
+<pre><code class="language-bash">cd ~/opencode-playground
+opencode
+</code></pre>
+<p>You will drop into the TUI: a chat area, a prompt at the bottom, and a help line. The basics:</p>
+<ul>
+<li><strong>Type a message and press Enter</strong> to send it.</li>
+<li><strong><code>Ctrl+C</code> twice, or type <code>/exit</code></strong> to leave.</li>
+<li><strong><code>/help</code></strong> lists every special command.</li>
+</ul>
+<p>Commands that start with <code>/</code> go to OpenCode itself, not to the AI <code>—</code> think of them as the program's menu. You will use these five constantly:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/help</code></td>
+<td>List all commands and key binds</td>
+</tr>
+<tr>
+<td><code>/connect</code></td>
+<td>Attach a provider/model (Chapter 3 does this together with you)</td>
+</tr>
+<tr>
+<td><code>/models</code></td>
+<td>Pick or switch the model you are using</td>
+</tr>
+<tr>
+<td><code>/init</code></td>
+<td>Have OpenCode analyse the current folder and write <code>AGENTS.md</code></td>
+</tr>
+<tr>
+<td><code>/undo</code>, <code>/redo</code></td>
+<td>Back out or re-apply the last set of changes</td>
+</tr>
+</tbody>
+</table>
+<p>A few keys worth knowing early:</p>
+<ul>
+<li><strong>Tab</strong> toggles <strong>Plan ↔ Build</strong> mode (bottom-right shows which you are in).</li>
+<li><strong>@</strong> while typing lets you fuzzy-search and reference files in this project — the single most useful beginner key.</li>
+<li><strong>Drag an image</strong> into the window to attach a screenshot for the AI to look at.</li>
+</ul>
+<p>If the display looks scrambled (misaligned lines, colours everywhere), your terminal is the culprit, not you — return to the table at the top and try Ghostty, WezTerm, or Kitty. Chapter 9 has more fixes.</p>
+<h2 id="step-3-meet-agentsmd-your-projects-welcome-note">Step 3: Meet <code>AGENTS.md</code> (your project's welcome note)</h2>
+<p>While still in the playground, run:</p>
+<pre><code>/init
+</code></pre>
+<p>OpenCode will look around, and in an empty folder it has little to say — that is fine and quick. In a real project it writes an <code>AGENTS.md</code> file in the project root describing structure, style, and how to run things. Two habits to build now:</p>
+<ol>
+<li><strong>Re-run <code>/init</code> after big structural changes</strong> so the welcome note stays accurate.</li>
+<li><strong>Commit <code>AGENTS.md</code> to Git</strong> (Chapter 6). It is part of your project, and committing it means the AI (and collaborators) always have the same briefing.</li>
+</ol>
+<p>Later, you can <em>hand-edit</em> <code>AGENTS.md</code> to add house rules, e.g. "always answer in plain English" or "never edit files in <code>./archive</code>". OpenCode reads it as instructions every session.</p>
+<h2 id="step-4-point-opencode-at-a-model">Step 4: Point OpenCode at a model</h2>
+<p>Right now OpenCode is a car with no engine: it has no model to think with. The <code>/connect</code> command walks you through attaching one — another provider, a subscription you already own, or a model running on your own machine. That is the entire subject of Chapter 3, which is where we go next.</p>
+<h2 id="where-your-credentials-live-so-you-stop-worrying">Where your credentials live (so you stop worrying)</h2>
+<p>When you paste an API key during <code>/connect</code>, OpenCode stores it on your machine — in <code>~/.local/share/opencode/auth.json</code> on Linux/macOS/WSL — not inside your project folder. Three consequences:</p>
+<ul>
+<li>You <strong>can</strong> commit your project to git without leaking keys (but check anyway — Chapter 6 shows how).</li>
+<li>Anyone with access to your user account can read that file, like any password cache.</li>
+<li>If you suspect it leaked, revoke the key at the provider's website, not by deleting the file — then re-connect.</li>
+</ul>
+<h2 id="common-first-run-feelings-and-why-they-are-fine">Common first-run feelings (and why they are fine)</h2>
+<ul>
+<li><em>"The terminal feels alien."</em> It is a muscle, not a talent. You will use about six commands for 90% of your work, and this book prints every one.</li>
+<li><em>"I'm afraid I'll break something."</em> With Git (Chapter 6) you gain a time machine. Until then, stay in your playground folder.</li>
+<li><em>"The AI's answers feel vague."</em> Almost always the prompt, not the tool — and Chapter 5 is entirely about prompts.</li>
+</ul>
+<h2 id="checkbox-recap-of-this-chapter">Checkbox recap of this chapter</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Chose and opened a good terminal (WSL on Windows)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Installed OpenCode with one command</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>opencode --version</code> prints a version</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Launched and exited the TUI</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Ran <code>/init</code> in a practice folder</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Know where <code>~/.local/share/opencode/auth.json</code> lives</li>
+</ul>
+<p>When every box is ticked, you are ready to give your agent a brain — for free.</p>
+<hr />
+</main>
+<div class="nav">
+<a href="01-what-is-opencode.html">← Chapter 1 — What Is OpenCode?</a>
+<a href="03-picking-free-models.html">Chapter 3 — Picking Free Models →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

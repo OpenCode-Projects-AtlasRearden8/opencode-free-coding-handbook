@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 3 — Picking Free Models · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 3 — Picking Free Models</h1>
+<div class="chapter-meta">Chapter 3/10 · ~1,494 words · ~7 min read</div>
+<p>OpenCode is the tool; the <strong>model</strong> is the engine. This chapter gets you an engine without spending money, and explains the honest trade-offs you are making.</p>
+<h2 id="what-free-really-means">What "free" really means</h2>
+<p>"Free" in this world comes in four flavours. You will meet all of them, so learn to tell them apart:</p>
+<table>
+<thead>
+<tr>
+<th>Flavour</th>
+<th>What it is</th>
+<th>Catch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free tier (cloud)</strong></td>
+<td>A hosted model you can call from OpenCode with a signup, limited by requests per day/month or tokens</td>
+<td>Limits, slower queues, sometimes weaker models served</td>
+</tr>
+<tr>
+<td><strong>Subscription you already own</strong></td>
+<td>A ChatGPT Plus, GitHub Copilot, or GitLab plan you <em>already pay for</em> elsewhere — OpenCode can use it for coding with zero setup</td>
+<td>Not "free," but no <em>new</em> money; subject to that plan's caps</td>
+</tr>
+<tr>
+<td><strong>Free credits / promotional</strong></td>
+<td>Start-up providers giving new accounts a helping stack of tokens</td>
+<td>Runs out; better as a taste than a plan</td>
+</tr>
+<tr>
+<td><strong>Local models</strong></td>
+<td>Open-weights models running on <em>your</em> computer via Ollama, LM Studio, or llama.cpp</td>
+<td>No limits ever, but your hardware and patience are the budget</td>
+</tr>
+</tbody>
+</table>
+<p>The overriding truth, stated kindly: <strong>the free world is real and good.</strong> Free and open-weights coding models — the Qwen-Coder family, GLM series, DeepSeek-Coder variants, Llama, and friends — are routinely capable enough to build small projects, clean data, write scripts, and maintain a website. You are not choosing between "free" and "useful." You are choosing speed, patience, and privacy trade-offs, which the table below makes concrete.</p>
+<table>
+<thead>
+<tr>
+<th>Trade-off axis</th>
+<th>Cloud free tier</th>
+<th>Local model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cost</td>
+<td>0 (with caps)</td>
+<td>0 (with your electricity)</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Usually fast, sometimes throttled</td>
+<td>Depends on your machine</td>
+</tr>
+<tr>
+<td>Privacy</td>
+<td>Your code travels to the provider's servers</td>
+<td>Code never leaves your machine</td>
+</tr>
+<tr>
+<td>Quality ceiling</td>
+<td>Usually higher</td>
+<td>Smaller models, smaller context</td>
+</tr>
+<tr>
+<td>Setup</td>
+<td>Account + API key</td>
+<td>Install a program + download model files</td>
+</tr>
+<tr>
+<td>Limits</td>
+<td>Daily/monthly caps</td>
+<td>None — run it till your fan gives up</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-menu-of-free-paths">The menu of free paths</h2>
+<p>Here is the landscape as of late 2026. <strong>Prices and limits change constantly</strong> — treat every number here as an example, and the provider's own page as the truth. OpenCode supports all of these via <code>/connect</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>What you get</th>
+<th>Rough shape of the limits</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GitHub Copilot (free plan)</strong></td>
+<td>Coding models through your GitHub account; device-code login, no API key to manage</td>
+<td>Monthly request/message caps on the free plan; the best models often need paid tiers</td>
+<td>Beginners who already have GitHub; the smoothest login</td>
+</tr>
+<tr>
+<td><strong>ChatGPT Plus/Pro</strong> (if you own it)</td>
+<td>OpenCode connects with your existing subscription via browser sign-in</td>
+<td>Your subscription's usage caps</td>
+<td>People who already pay for one; no new account</td>
+</tr>
+<tr>
+<td><strong>Google AI Studio (Gemini)</strong></td>
+<td>A generous free tier on Gemini models via an API key from AI Studio</td>
+<td>Daily request caps; data may be used to improve service on the free tier</td>
+<td>Big context windows and strong general ability</td>
+</tr>
+<tr>
+<td><strong>Groq</strong></td>
+<td>Very fast serving of open models (e.g. Llama, Qwen families)</td>
+<td>Free tier with rate limits</td>
+<td>Lightning-fast iteration on free-weights models</td>
+</tr>
+<tr>
+<td><strong>Cerebras</strong></td>
+<td>Open models such as Qwen-Coder at very high speed</td>
+<td>Free tier with rate limits</td>
+<td>Same as Groq — pick whichever is smoothest that week</td>
+</tr>
+<tr>
+<td><strong>NVIDIA (build.nvidia.com)</strong></td>
+<td>Free access to Nemotron and many open models</td>
+<td>Per-model rate limits</td>
+<td>Sampling many open models free</td>
+</tr>
+<tr>
+<td><strong>OpenRouter (<code>:free</code> models)</strong></td>
+<td>A menu-service routing to many labs; models suffixed <code>:free</code> cost nothing</td>
+<td>Daily caps on free models; quality varies</td>
+<td>Trying lots of models without committing</td>
+</tr>
+<tr>
+<td><strong>Hugging Face Inference</strong></td>
+<td>Free monthly inference credits across many providers</td>
+<td>Credits refresh monthly</td>
+<td>Occasional use of trendy new models</td>
+</tr>
+<tr>
+<td><strong>Ollama (local)</strong></td>
+<td>Open-weights models entirely on your machine</td>
+<td>Only your RAM/GPU/disk</td>
+<td>Privacy, offline work, unlimited practice</td>
+</tr>
+<tr>
+<td><strong>LM Studio (local)</strong></td>
+<td>Point-and-click app for downloading and serving local models</td>
+<td>Same as Ollama</td>
+<td>Beginners who prefer windows over commands</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-two-setup-recipes-youll-actually-need">The two setup recipes you'll actually need</h2>
+<h3 id="recipe-a-github-copilot-the-smoothest-cloud-start">Recipe A: GitHub Copilot (the smoothest cloud start)</h3>
+<ol>
+<li>Make sure you have a GitHub account (free to create).</li>
+<li>In OpenCode, run <code>/connect</code>, search for and choose <strong>GitHub Copilot</strong>.</li>
+<li>OpenCode shows a short code and the address <code>github.com/login/device</code>. Open that page in a browser, enter the code, and approve.</li>
+<li>Back in OpenCode, run <code>/models</code> and pick a model.</li>
+</ol>
+<p>Notes worth knowing:</p>
+<ul>
+<li>Some models require paid Copilot plans (Pro+); the free plan's models still work fine for learning.</li>
+<li>If you later see "model requires a higher plan" errors, pick a different model from <code>/models</code> — nobody is charging you here, the menu is just saying <em>that one's not in your tier</em>.</li>
+</ul>
+<h3 id="recipe-b-ollama-the-local-unlimited-start">Recipe B: Ollama (the local, unlimited start)</h3>
+<p>Ollama runs models on your own computer. Nothing leaves your machine — which matters for medical-adjacent work, small business records, or anything private.</p>
+<ol>
+<li>Install Ollama from <code>ollama.com</code> (Windows and macOS installers; Linux a one-line script).</li>
+<li>Pull a coding model from your terminal, e.g.:</li>
+</ol>
+<p><code>bash
+   ollama pull qwen3-coder:7b</code></p>
+<p>(Model names and size tags change — browse the library at ollama.com/library and pick a <em>coder</em> model that fits your hardware. As a rule of thumb: about 8 GB of RAM will run a 7–8B model; 16 GB or a modest GPU comfortably runs the bigger useful ones.)
+3. Tell OpenCode about the provider by adding this to <code>~/.config/opencode/opencode.json</code> (create the file if needed):</p>
+<p><code>json
+   {
+     "$schema": "https://opencode.ai/config.json",
+     "provider": {
+       "ollama": {
+         "npm": "@ai-sdk/openai-compatible",
+         "name": "Ollama (local)",
+         "options": {
+           "baseURL": "http://localhost:11434/v1"
+         },
+         "models": {
+           "qwen3-coder:7b": {
+             "name": "Qwen3-Coder 7B (local)"
+           }
+         }
+       }
+     }
+   }</code></p>
+<ol start="4">
+<li>Restart OpenCode, run <code>/models</code>, and you will see your local model listed.</li>
+</ol>
+<p>Two local-model tips that save hours:</p>
+<ul>
+<li><strong>Increase the context size</strong>: if tool calls misbehave or the model "forgets," raise Ollama's <code>num_ctx</code> (start around 16k–32k). Small default contexts are the number-one cause of flaky local behaviour.</li>
+<li><strong>Check the model is running</strong>: <code>ollama ps</code> shows what is loaded; <code>ollama run qwen3-coder:7b</code> lets you chat with it directly to confirm it works outside OpenCode.</li>
+</ul>
+<h2 id="the-real-selection-criteria-beyond-is-it-free">The real selection criteria (beyond "is it free")</h2>
+<p>Tick these five boxes whenever you evaluate a free model:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Does it support tool calls?</strong> OpenCode is an <em>agent</em> — it needs models that can call tools (read/edit files, run commands). Non-tool-calling models can chat but will fail at agentic jobs. Coder-focused models (Qwen-Coder, DeepSeek-Coder, big GLM variants, frontier models) are the safe picks.</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Is the context window big enough?</strong> Your whole project's key files and the conversation must fit. If the model has ~8k tokens of context, ambitious tasks will break in confusing ways. Prefer comfortable contexts (128k is common this decade).</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>What are the actual rate limits today?</strong> Check the provider's own pricing/limits page — not this book — before planning a work day around it.</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>What is the privacy story?</strong> Cloud free tiers often <em>may use your data for training</em>. If the content is sensitive (client data, health information, business records), use a paid key or a local model. Say it plainly: <em>do not paste anything you would not put on a postcard through a public free tier.</em></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Is there a "plan" model and a "build" model?</strong> A common free-tier strategy: use a strong model for planning (rare, precious requests) and a faster one for execution (plentiful requests). Chapter 8 builds on this.</li>
+</ul>
+<h2 id="a-simple-starting-recommendation">A simple starting recommendation</h2>
+<p>If you want one default answer rather than a research project:</p>
+<ul>
+<li><strong>Comfortable and social</strong>: GitHub Copilot's free plan (Recipe A) — fewest moving parts if you already have GitHub.</li>
+<li><strong>Private and unlimited</strong>: a Qwen3-Coder-class local model via Ollama (Recipe B) — the "free forever" path, gated by your hardware.</li>
+<li><strong>Experimentation budget</strong>: OpenRouter's <code>:free</code> suffix models or Groq/Cerebras/NVIDIA free tiers — great for taste-testing models before committing to one.</li>
+</ul>
+<p>And remember: switching models is <strong>one command</strong> (<code>/models</code>), so this decision is cheap to revisit. You are not marrying a model; you are hiring per task.</p>
+<h2 id="checklist-of-this-chapter">Checklist of this chapter</h2>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You can name the four flavours of "free"</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Connected at least one cloud model via <code>/connect</code>, or</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Set up Ollama with a local coding model in <code>opencode.json</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>/models</code> shows your choice and you have chatted with it once</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You checked the provider's current limits page (today's numbers, not a book's)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> You know the privacy posture of whichever model you picked</li>
+</ul>
+<hr />
+</main>
+<div class="nav">
+<a href="02-installing-opencode.html">← Chapter 2 — Installing OpenCode</a>
+<a href="04-permissions-and-safety.html">Chapter 4 — Permissions and Safety →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

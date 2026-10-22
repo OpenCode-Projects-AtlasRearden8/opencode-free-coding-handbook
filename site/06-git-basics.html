@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 6 — Git Basics (Your Safety Net) · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 6 — Git Basics (Your Safety Net)</h1>
+<div class="chapter-meta">Chapter 6/10 · ~1,116 words · ~5 min read</div>
+<p>Git is the one tool in this book that has nothing directly to do with AI — and is the reason AI coding is <em>safe</em> for beginners. Git records snapshots of your project, called <strong>commits</strong>, so that any mistake — yours or the AI's — can be reversed with one command. Everything else in this book quietly assumes you know this chapter.</p>
+<h2 id="the-idea-in-one-paragraph">The idea in one paragraph</h2>
+<p>Imagine you save a copy of a document before every edit, forever, into a numbered archive that takes no space and never gets mislabelled. That is Git. A <strong>repository</strong> ("repo") is a project folder that Git archives. A <strong>commit</strong> is one archived snapshot with a label you wrote. A <strong>diff</strong> is the difference between two snapshots. That vocabulary plus six commands is 95% of what beginners need.</p>
+<h2 id="setup-once-per-computer">Setup once, per computer</h2>
+<p>Tell Git who you are (this goes into the archive labels of commits you make):</p>
+<pre><code class="language-bash">git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
+</code></pre>
+<p>The email does not need to be real for local work, but using your real one matters later if you publish to GitHub, since GitHub links commits to accounts by email. Nothing in this book requires an online service; Git is fully local.</p>
+<h2 id="the-six-commands-that-matter">The six commands that matter</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+<th>When you type it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git init</code></td>
+<td>Turn this folder into a repo</td>
+<td>Once, at the start of a project</td>
+</tr>
+<tr>
+<td><code>git status</code></td>
+<td>Show what changed and what's staged</td>
+<td>Constantly; your dashboard</td>
+</tr>
+<tr>
+<td><code>git add -A</code></td>
+<td>Stage all current changes for the next snapshot</td>
+<td>When you like what you see</td>
+</tr>
+<tr>
+<td><code>git commit -m "…"</code></td>
+<td>Save a labelled snapshot</td>
+<td>Every time you reach a good state</td>
+</tr>
+<tr>
+<td><code>git log --oneline</code></td>
+<td>List past snapshots short</td>
+<td>When you want an overview</td>
+</tr>
+<tr>
+<td><code>git diff</code></td>
+<td>Show unstaged changes line by line</td>
+<td>Before staging — your review screen</td>
+</tr>
+</tbody>
+</table>
+<p>And for emergencies (learn these the day something breaks):</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git restore &lt;file&gt;</code></td>
+<td>Discard unsaved changes to a file — back to last commit</td>
+</tr>
+<tr>
+<td><code>git restore --staged &lt;file&gt;</code></td>
+<td>Unstage a file you add-ed by mistake</td>
+</tr>
+<tr>
+<td><code>git checkout &lt;hash&gt;</code></td>
+<td>Travel back in time to look at any old snapshot, read-only</td>
+</tr>
+<tr>
+<td><code>git branch &lt;name&gt;</code> / <code>git checkout -b &lt;name&gt;</code></td>
+<td>Create a parallel history (see below)</td>
+</tr>
+<tr>
+<td><code>git merge &lt;name&gt;</code></td>
+<td>Blend a branch's work back into the main line</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing here touches the internet. This book keeps you <strong>local-first</strong>: GitHub is a good future step, but you do not need accounts or remotes to be protected.</p>
+<h2 id="gitignore-files-git-should-never-touch"><code>.gitignore</code>: files Git should never touch</h2>
+<p>Some files should never enter history: caches, build output, and above all <strong>secrets</strong>. Put a <code>.gitignore</code> file in your project root on day one:</p>
+<pre><code class="language-gitignore"># Never commit these
+.env
+.env.*
+*.pem
+*secret*
+auth.json
+
+# Usually noise
+node_modules/
+__pycache__/
+.DS_Store
+</code></pre>
+<p>Check that it works:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git status</code> shows no <code>.env</code> (or similar) as untracked after you add <code>.gitignore</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>node_modules/</code> (if you use it) is invisible to <code>git status</code></li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The <code>.gitignore</code> itself <strong>is</strong> tracked (it's a project file, and a great one)</li>
+</ul>
+<p>Note the difference in defaults you already carry from Chapter 4: OpenCode refuses to read <code>.env</code> by the same logic — secrets stay out of conversations <em>and</em> out of history.</p>
+<h2 id="the-recommended-ai-working-rhythm">The recommended AI-working rhythm</h2>
+<p>This is the chapter's gift to your future self: a rhythm that makes AI work trivially reversible.</p>
+<ol>
+<li><strong>Start clean.</strong> Before asking the AI for anything, <code>git status</code> should say "nothing to commit." If not, commit or discard the old work first — never mix old and new in one review.</li>
+<li><strong>Commit before you prompt.</strong> A commit right before each AI task is a restore point keyed by task (write it in the message: "before dark mode feature").</li>
+<li><strong>Let the AI work.</strong> Approve, watch, keep Git untouched.</li>
+<li><strong>Review the diff</strong> (<code>git diff</code>, Chapter 7 teaches the routine).</li>
+<li><strong>Commit the result — or roll back.</strong> Good? <code>git add -A &amp;&amp; git commit -m "add dark mode toggle"</code>. Bad? <code>git restore .</code> and nothing of value was lost — your last commit still stands.</li>
+</ol>
+<p>Optionally level up with branches: <code>git checkout -b dark-mode</code> before a bigger feature, explore there, <code>git merge dark-mode</code> when satisfied. A branch is a free sandbox that protects the main line; it pairs beautifully with AI experiments.</p>
+<h2 id="writing-commit-messages-that-help-including-with-the-ai">Writing commit messages that help (including with the AI)</h2>
+<p>A commit message is a label for your future self. Patterns that cost seconds and pay for weeks:</p>
+<ul>
+<li><strong>Present tense, imperative-ish, specific</strong>: <code>add slugify helper with tests</code>, <code>fix crash on empty photo name</code>, <strong>not</strong> <code>fixes</code> / <code>stuff</code> / <code>asdf</code>.</li>
+<li><strong>Why beats what</strong>: <code>cap crops at 1200px (eBay requires min 800)</code> is gold six months later; <code>resize images</code> is decorations.</li>
+<li><strong>One idea per commit</strong>: if the message needs the word "and" three times, make two commits.</li>
+<li><strong>Never commit secrets or junk files</strong>: check <code>git diff --staged</code> before any commit if you are unsure what you staged.</li>
+</ul>
+<h2 id="what-to-commit-including-agentsmd">What to commit — including <code>AGENTS.md</code></h2>
+<p>Short answer: everything that defines the project. Specifically relevant to this book:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Commit it?</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source code (<code>src/</code>, etc.)</td>
+<td>Yes</td>
+<td>Obviously</td>
+</tr>
+<tr>
+<td><code>AGENTS.md</code></td>
+<td><strong>Yes</strong></td>
+<td>Your AI briefing travels with the project; per OpenCode's own advice</td>
+</tr>
+<tr>
+<td>README, config, test data (fake)</td>
+<td>Yes</td>
+<td>Part of the project</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Yes</td>
+<td>Protects the future</td>
+</tr>
+<tr>
+<td><code>.env</code>, keys, <code>auth.json</code></td>
+<td><strong>Never</strong></td>
+<td>Secrets</td>
+</tr>
+<tr>
+<td><code>node_modules/</code>, build output</td>
+<td>No</td>
+<td>Reproducible from source; huge</td>
+</tr>
+<tr>
+<td>Large media you could regenerate</td>
+<td>Usually not</td>
+<td>Keeps repo snappy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="your-rhythm-as-a-checklist">Your rhythm as a checklist</h2>
+<p>Print this. It is the operational spine of the whole book:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Repo initialized (<code>git init</code>), user configured</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>.gitignore</code> in place, secrets excluded</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Working tree clean before each AI task</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Commit before prompting (snapshot A)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <code>git diff</code> reviewed after the AI's work</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Commit after acceptance (snapshot B) <strong>or</strong> <code>git restore .</code> to roll back</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Messages: specific, one idea each, no secrets</li>
+</ul>
+<p>With this rhythm, the scariest sentence in AI coding — <em>"I don't know what it changed"</em> — becomes a question with a nine-character answer: <code>git diff</code>. On to reviewing, proper.</p>
+<hr />
+</main>
+<div class="nav">
+<a href="05-writing-good-task-prompts.html">← Chapter 5 — Writing Good Task Prompts</a>
+<a href="07-reviewing-ai-changes.html">Chapter 7 — Reviewing AI Changes →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>

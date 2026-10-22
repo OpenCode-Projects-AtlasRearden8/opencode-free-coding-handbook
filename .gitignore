@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editor/OS noise
+.DS_Store
+Thumbs.db
+*.swp
+
+# Local scratch
+*.log

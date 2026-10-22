@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free AI Coding with OpenCode — a beginner's manual by Asdale Dynamics, LLC">
+<title>Chapter 5 — Writing Good Task Prompts · Free AI Coding with OpenCode</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="site-header"><div class="bookmark"><a href="index.html">Free AI Coding with OpenCode</a></div></div>
+<main>
+<h1>Chapter 5 — Writing Good Task Prompts</h1>
+<div class="chapter-meta">Chapter 5/10 · ~1,295 words · ~6 min read</div>
+<p>Bad prompts are the single biggest cause of "the AI is useless" experiences — and the fix costs nothing. This chapter gives you a formula, worked examples, and the little OpenCode mechanics (<code>@</code>, images, Plan mode) that turn decent prompts into great ones.</p>
+<h2 id="the-four-part-prompt-formula">The four-part prompt formula</h2>
+<p>Every good task prompt contains four ingredients. You do not need perfect style; you need all four present:</p>
+<ol>
+<li><strong>Goal</strong> — what you want to be true when the work is done.</li>
+<li><strong>Context</strong> — where the work happens (files, folders, examples of similar things).</li>
+<li><strong>Constraints</strong> — boundaries: what <em>not</em> to touch, style rules, keep it simple.</li>
+<li><strong>Definition of done</strong> — how you will check the result (a page opens, a test passes, a file is created).</li>
+</ol>
+<p>A friendly way to remind yourself: <em>goal, where, guardrails, and how I'll know.</em></p>
+<h2 id="bad-and-good-side-by-side">Bad and good, side by side</h2>
+<p>The jump from bad to good is smaller than you think — it is just the four parts, said out loud:</p>
+<table>
+<thead>
+<tr>
+<th>Vague prompt</th>
+<th>Good prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Fix my website."</td>
+<td>"Goal: the <code>/contact</code> page's form should send submissions to a local text file and show a success message. Context: it lives in <code>site/contact.html</code> and <code>js/contact.js</code>. Constraints: don't change other pages; keep styling as-is. Done: submitting the form produces a line in <code>submissions.txt</code> and a visible success note."</td>
+</tr>
+<tr>
+<td>"Make the data cleaner."</td>
+<td>"Goal: remove duplicate rows in <code>data/patients.csv</code> where <code>ID</code> matches, keeping the earliest <code>VisitDate</code>. Context: it's a CSV with a header row; dates are <code>YYYY-MM-DD</code>. Constraints: don't reorder rows otherwise; warn me how many duplicates you removed. Done: the output file has a count of removed rows and opens without errors."</td>
+</tr>
+<tr>
+<td>"Add tests."</td>
+<td>"Goal: add tests for the <code>slugify()</code> function in <code>src/text.js</code>. Context: test pattern for this project is <code>tests/*.test.js</code>; see <code>tests/none-yet</code>. Constraints: use the project's existing test style; no new dependencies. Done: <code>npm test</code> passes and covers empty strings, uppercase, and repeated dashes."</td>
+</tr>
+<tr>
+<td>"Can it have a dark mode?"</td>
+<td>"Goal: add a dark/light toggle to the reader page. Context: colours live in <code>style.css</code>; the toggle button can sit in the top-left of <code>reader.html</code>. Constraints: store the choice in <code>localStorage</code>; don't add frameworks. Done: toggling survives a page refresh."</td>
+</tr>
+</tbody>
+</table>
+<p>Notice what the good column is <em>not</em>: jargon-heavy, clever, or long. It is just explicit about the four parts. Beginners routinely under-specify the <strong>definition of done</strong>, which is the part the AI also uses to <em>check itself</em> before handing you work.</p>
+<h2 id="work-across-the-table-from-your-junior-developer">Work across the table from your junior developer</h2>
+<p>Chapter 1's mental model pays off here. You would not say "make onboarding better" to a new hire and walk away. You would hand them a ticket. Write prompts like tickets:</p>
+<ul>
+<li><strong>One task per prompt.</strong> Sequential, small asks beat a single giant wish. Small tasks also fit small context windows (relevant for free models, see Chapter 8) and produce reviewable diffs (Chapter 7).</li>
+<li><strong>Point at concrete things.</strong> Use <code>@</code> while typing to reference real files (<code>@src/app.js</code>); OpenCode pulls the file into the AI's attention. Reference by-with example: "handle it like the other routes do in @packages/functions/src/notes.ts".</li>
+<li><strong>Invite questions.</strong> "Before you start, ask me anything unclear" is a magic sentence. It converts silent wrong guesses into a short conversation you can afford.</li>
+<li><strong>Give constraints you care about but wouldn't think to say</strong>: "plain JavaScript, no frameworks"; "don't reformat files I didn't mention"; "comments only where code isn't obvious"; "never edit files under <code>archive/</code>".</li>
+<li><strong>Let it propose, then choose.</strong> For anything design-flavoured, ask for three options with trade-offs before building any. Choosing between sketches is easier than undoing a building.</li>
+</ul>
+<h2 id="the-plan-build-drill">The Plan → Build drill</h2>
+<p>This rides on Chapter 1's loop but deserves its own drill, because it is <em>the</em> quality lever:</p>
+<ol>
+<li>Press <strong>Tab</strong> into <strong>Plan mode</strong>.</li>
+<li>Write the four-part prompt.</li>
+<li>Read the plan as if grading someone's work. Fix: missing steps, wrong files touched, scope creep, anything it "assumed" that you did not say.</li>
+<li>Iterate the plan with short replies ("step 2 should use the existing helper in <code>@utils/date.js</code>, not a new one").</li>
+<li>When the plan matches your intent, <strong>Tab</strong> back to Build mode and say: "Approved — go ahead with exactly this plan."</li>
+</ol>
+<p>Cost of all that: two minutes. Cost of not doing it: a bad half-hour of undoing. On free tiers this is also simply the cheapest way to spend tokens.</p>
+<h2 id="a-worked-example-start-to-finish">A worked example (start to finish)</h2>
+<p>Task: you want to build a <strong>soft-delete flow for notes</strong> — the same example shape OpenCode's own documentation demonstrates, and a very common real-world need.</p>
+<p><strong>In Plan mode:</strong></p>
+<blockquote>
+<p>Goal: when a user deletes a note, we flag it as deleted in the database instead of deleting it. Then add a "Recently deleted" screen where a note can be undeleted or permanently removed.
+Context: notes live in <code>src/notes/</code>; the database layer is <code>src/db.js</code>; see how the existing list view in <code>src/notes/list.js</code> is structured and match it.
+Constraints: no new dependencies; keep the UI style consistent; don't touch anything outside <code>src/notes/</code> and <code>src/db.js</code>.
+Done: deleting a note hides it from the main list, it appears under Recently deleted, undelete puts it back, permanent delete is possible but asks for confirmation.</p>
+</blockquote>
+<p>Iterate the plan if needed. Then, in Build mode: "Approved — implement this plan."</p>
+<p>After it builds: review (Chapter 7), run the app, and commit. A real feature, built by an AI, understood by you.</p>
+<h2 id="small-mechanic-chapter-things-opencode-gives-you-for-free-in-prompts">Small-mechanic chapter: things OpenCode gives you for free in prompts</h2>
+<table>
+<thead>
+<tr>
+<th>Mechanic</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@file</code> references</td>
+<td>Pull specific files into context ("see how <code>@notes.ts</code> handles auth")</td>
+</tr>
+<tr>
+<td>Drag-and-drop images</td>
+<td>Screenshots of the design you want matched; error popups for debugging</td>
+</tr>
+<tr>
+<td>Plan mode (Tab)</td>
+<td>Force a review-first workflow</td>
+</tr>
+<tr>
+<td><code>/undo</code>, <code>/redo</code></td>
+<td>Cheap iteration: change the prompt, not the mess</td>
+</tr>
+<tr>
+<td><code>/init</code> + edits to <code>AGENTS.md</code></td>
+<td>Put <em>standing</em> preferences in <code>AGENTS.md</code> ("in <code>@AGENTS.md</code>: always answer in plain English") so you stop repeating them</td>
+</tr>
+<tr>
+<td>Follow-up "why did you…?"</td>
+<td>The best review engine is the chat itself — make the AI explain its own changes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prompt-anti-patterns-to-retire">Prompt anti-patterns to retire</h2>
+<p>Retire these habits now, with love:</p>
+<table>
+<thead>
+<tr>
+<th>Anti-pattern</th>
+<th>Why it fails</th>
+<th>Replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Make it good/professional/modern"</td>
+<td>Untestable; guarantees generic output</td>
+<td>Concrete description of the visible result</td>
+</tr>
+<tr>
+<td>Ten tasks in one prompt</td>
+<td>First three get done, rest forgotten, context fills</td>
+<td>One ticket per prompt, sequenced</td>
+</tr>
+<tr>
+<td>"You're an expert, just do it"</td>
+<td>Confidence theatre; moves nothing</td>
+<td>Provide the context and done-definition</td>
+</tr>
+<tr>
+<td>No mention of files</td>
+<td>AI wanders the project guessing</td>
+<td><code>@</code> references to real files</td>
+</tr>
+<tr>
+<td>"Rewrite everything from scratch"</td>
+<td>Throws away unreviewed value</td>
+<td>Ask for a targeted change or an new module</td>
+</tr>
+<tr>
+<td>Silence when unhappy</td>
+<td>Rolls with the bad version</td>
+<td>Say exactly what's wrong; re-prompt or <code>/undo</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="checklist-before-you-press-enter">Checklist: before you press Enter</h2>
+<p>Glance down this list when you finish typing any prompt:</p>
+<ul>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> The <strong>goal</strong> is a result, not a mood</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Context</strong>: real files are referenced (with <code>@</code> where possible)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Constraints</strong> that matter are stated (scope, style, no-new-deps)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> <strong>Definition of done</strong> is checkable by <em>you</em>, not just the AI</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> It is <strong>one task</strong> (or an explicitly-sequenced plan)</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> In Plan mode, if the change is bigger than a tweak</li>
+<li class="todo"><span class="box" aria-hidden="true">☐</span> Long-term preferences live in <code>AGENTS.md</code>, not in every prompt</li>
+</ul>
+<p>That's the craft. Next chapter: the safety net beneath all of this.</p>
+<hr />
+</main>
+<div class="nav">
+<a href="04-permissions-and-safety.html">← Chapter 4 — Permissions and Safety</a>
+<a href="06-git-basics.html">Chapter 6 — Git Basics (Your Safety Net) →</a>
+</div>
+<div class="footer">Free AI Coding with OpenCode · By Asdale Dynamics, LLC · MIT License · <a href="index.html">contents</a></div>
+</body>
+</html>
